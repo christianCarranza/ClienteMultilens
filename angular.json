@@ -17,6 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "js-cookie",
+              "firebase/app",
+              "@firebase/app"
+            ],
             "outputPath": "dist/cliente-multilens",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -27,9 +32,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/summernote/dist/summernote-lite.min.css"
             ],
-            "scripts": []
+            "scripts": [
+               "./node_modules/js-cookie/src/js.cookie.js",
+                "node_modules/summernote/dist/summernote-lite.min.js"
+            ]
           },
           "configurations": {
             "production": {

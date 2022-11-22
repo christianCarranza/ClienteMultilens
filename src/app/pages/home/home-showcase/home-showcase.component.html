@@ -1,0 +1,131 @@
+	<!--=====================================
+Section Gray
+======================================-->  
+
+<div class="ps-section--gray">
+
+    <div 
+	*ngIf="!preload"
+    class="container">
+
+    	<!--=====================================
+		Products of category
+		======================================-->  
+
+        <div 
+		*ngFor="let category of categories; let lastIndex = last; let i = index"
+        class="ps-block--products-of-category">
+
+        	<!--=====================================
+			Menu subcategory
+			======================================-->  
+
+            <div class="ps-block__categories">
+
+                <h3>{{category.name}}</h3>
+
+                    <ul [attr.category-showcase]="category.name">
+                      
+                    </ul>
+
+                    <a class="ps-block__more-link" routerLink="products/{{category.url}}">View All</a>
+
+            </div>
+
+            <!--=====================================
+			Vertical Slider Category
+			======================================-->  
+
+            <div class="ps-block__slider">
+
+                <div [attr.category-sl]="category.url">
+
+                </div>
+
+            </div>
+
+            <!--=====================================
+			Block Product Box
+			======================================-->  
+
+            <div class="ps-block__product-box" [attr.category-pb]="category.url">
+				
+
+             
+            </div><!-- End Block Product Box -->
+          
+        
+		{{ lastIndex ? callback(i) : "" }}
+        </div><!-- End Products of category -->
+
+    </div><!-- End Container-->
+
+    <!--=====================================
+    Preload
+    ======================================-->
+
+    <div 
+    *ngIf="preload"
+    class="d-flex justify-content-center">
+        <!-- <div class="spinner-border text-muted my-5"></div> -->
+        <div class="container">
+
+            <div class="ph-item">
+
+                <div class="ph-col-2">
+
+                    <div class="ph-row">
+
+                        <div class="ph-col-12 big"></div>
+
+                        <div class="ph-col-12 empty"></div>
+
+                        <div class="ph-col-12 empty"></div>
+
+                        <div class="ph-col-8"></div>
+
+                        <div class="ph-col-4 empty"></div>
+
+                        <div class="ph-col-12 empty"></div>
+
+                        <div class="ph-col-12"></div>
+
+                        <div class="ph-col-12 empty"></div>
+
+                        <div class="ph-col-12"></div>
+
+                        <div class="ph-col-12 empty"></div>
+
+                        <div class="ph-col-12"></div>
+
+                        <div class="ph-col-12 empty"></div>
+
+                        <div class="ph-col-12"></div>
+
+                        <div class="ph-col-12 empty"></div>
+
+                        <div class="ph-col-12"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="ph-col-2">
+
+                    <div class="ph-picture" style="height:500px"></div> 
+
+                </div>
+
+                 <div class="ph-col-8">
+
+                   <div class="ph-picture" style="height:500px"></div> 
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div><!-- End Section Gray-->
