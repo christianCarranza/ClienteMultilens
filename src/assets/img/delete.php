@@ -1,6 +1,6 @@
 <?php 
 
-if(isset($_GET["key"]) && $_GET["key"] == "[YOUR_API_KEY]"){
+if(isset($_GET["key"]) && $_GET["key"] == "AIzaSyDCbhaDnOD2_zb5TXc2Eqwbc8AYBnjFZyI"){
 
 	header('Access-Control-Allow-Origin: *');
 	header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
