@@ -179,7 +179,7 @@ export class LoginComponent implements OnInit {
 
 			$(input).parent().addClass('was-validated')
 
-			input.value = "";
+			//input.value = "";
 
 		}
 

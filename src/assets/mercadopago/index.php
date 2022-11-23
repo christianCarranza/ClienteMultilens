@@ -6,7 +6,7 @@ require __DIR__  . '/vendor/autoload.php';
 Dominio
 =============================================*/
 
-$domain = ""; //YOUR DOMAIN
+$domain = "http://proyectotesis.test/ClienteMultilens/src/"; //YOUR DOMAIN
 
 /*=============================================
 Credenciales
@@ -30,33 +30,35 @@ if($sandbox){
 /*=============================================
 Petición a la API de Cambio de Moneda
 =============================================*/
-$curl = curl_init();
+// $curl = curl_init();
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://free.currconv.com/api/v7/convert?q=USD_COP&compact=ultra&apiKey=[YOUR_API_KEY]",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 0,
-  CURLOPT_FOLLOWLOCATION => true,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "GET",
-  CURLOPT_HTTPHEADER => array(
-    "Cookie: __cfduid=d33a8b671902df6f1dfc8eb1d98756da61592509616"
-  ),
-));
+// curl_setopt_array($curl, array(
+//   CURLOPT_URL => "http://free.currconv.com/api/v7/convert?q=USD_COP&compact=ultra&apiKey=[YOUR_API_KEY]",
+//   CURLOPT_RETURNTRANSFER => true,
+//   CURLOPT_ENCODING => "",
+//   CURLOPT_MAXREDIRS => 10,
+//   CURLOPT_TIMEOUT => 0,
+//   CURLOPT_FOLLOWLOCATION => true,
+//   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//   CURLOPT_CUSTOMREQUEST => "GET",
+//   CURLOPT_HTTPHEADER => array(
+//     "Cookie: __cfduid=d33a8b671902df6f1dfc8eb1d98756da61592509616"
+//   ),
+// ));
 
-$response = curl_exec($curl);
+// $response = curl_exec($curl);
 
-curl_close($curl);
+// curl_close($curl);
 
-$jsonResponse = json_decode($response, true);
+// $jsonResponse = json_decode($response, true);
 
 /*=============================================
 Formulario de MercadoPago
 =============================================*/
 
-if(isset($_GET["_x"]) && $_GET["_x"] == md5(base64_decode($_COOKIE["_x"]))){
+
+
+if(isset($_GET["x"]) && $_GET["x"] == md5(base64_decode($_GET["cx"]))){
   
   echo '
   <div style="width:100%; height:100vh; position:fixed; background:url(mp-bg.jpg); background-repeat:no-repeat; background-size:cover">
@@ -65,11 +67,11 @@ if(isset($_GET["_x"]) && $_GET["_x"] == md5(base64_decode($_COOKIE["_x"]))){
 
   <form action="'.$domain.'assets/mercadopago/index.php" method="POST">
     <script
-      src="https://www.mercadopago.com.co/integrations/v1/web-tokenize-checkout.js"
+      src="https://www.mercadopago.com.pe/integrations/v1/web-tokenize-checkout.js"
       data-public-key="'.$public_key.'"
-      data-button-label="Next"
-      data-summary-product-label="'.$_COOKIE["_p"].'"
-      data-transaction-amount="'.$jsonResponse["USD_COP"]*base64_decode($_COOKIE["_x"]).'">
+      data-button-label="Siguiente"
+      data-summary-product-label="'.$_GET["cp"].'"
+      data-transaction-amount="'.base64_decode($_GET["cx"]).'">
     </script>
   </form>
 
@@ -82,7 +84,6 @@ if(isset($_GET["_x"]) && $_GET["_x"] == md5(base64_decode($_COOKIE["_x"]))){
 /*=============================================
 Recibir la respuesta de Mercado Pago
 =============================================*/
-
 if(isset($_REQUEST["token"])){
 
   /*=============================================
@@ -101,14 +102,14 @@ if(isset($_REQUEST["token"])){
   MercadoPago\SDK::setAccessToken($access_token);
     //...
     $payment = new MercadoPago\Payment();
-    $payment->transaction_amount = ceil($jsonResponse["USD_COP"]*base64_decode($_COOKIE["_x"]));
+    $payment->transaction_amount = base64_decode($_GET["cx"]);
     $payment->token = $token;
-    $payment->description = $_COOKIE["_p"];
+    $payment->description = $_GET["cp"];
     $payment->installments = $installments;
     $payment->payment_method_id = $payment_method_id;
     $payment->issuer_id = $issuer_id;
     $payment->payer = array(
-    "email" => $_COOKIE["_e"]
+    "email" => $_GET["ce"]
     );
     // Guarda y postea el pago
     $payment->save();
@@ -133,3 +134,4 @@ if(isset($_REQUEST["token"])){
     }
 
 }
+echo "<script>alert('decs".$_REQUEST["token"]."')</script>";

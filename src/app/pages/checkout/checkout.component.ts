@@ -1076,7 +1076,7 @@ export class CheckoutComponent implements OnInit {
 				Cookies.set("_p", description, {expires: 1});
 				Cookies.set("_e", email, {expires: 1});
 
-				window.open(`${path}mercadopago/index.php?_x=${Md5.init(localTotalPrice)}`,
+				window.open(`http://proyectotesis.test/ClienteMultilens/src/assets/mercadopago/index.php?x=${Md5.init(localTotalPrice)}&cx=${window.btoa(localTotalPrice)}&cp=${description}&ce=${email}`,
 							"_blank",
 							"width=950,height=650,scrollbars=NO")
 
