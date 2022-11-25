@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import firebase from 'firebase/compat/app';
-import "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
+
 
 import { Sweetalert } from '../../functions';
 
@@ -409,7 +410,7 @@ export class LoginComponent implements OnInit {
 		};
 
 		// Initialize Firebase
-		firebase.initializeApp(firebaseConfig);
+		initializeApp(firebaseConfig);
 
 		//https://firebase.google.com/docs/auth/web/facebook-login
 
@@ -417,14 +418,15 @@ export class LoginComponent implements OnInit {
 		Crea una instancia del objeto proveedor de Facebook
 		=============================================*/
 
-		var provider = new firebase.auth.FacebookAuthProvider();
+		const auth = getAuth();
+		const provider = new FacebookAuthProvider();
 
 		/*=============================================
 		acceder con una ventana emergente y con certificado SSL (https)
 		=============================================*/
 		//ng serve --ssl true --ssl-cert "/path/to/file.crt" --ssl-key "/path/to/file.key"
 
-		firebase.auth().signInWithPopup(provider).then(function (result) {
+		signInWithPopup(auth, provider).then(function (result) {
 
 			loginFirebaseDatabase(result, localUser, localUsersService)
 
@@ -444,7 +446,7 @@ export class LoginComponent implements OnInit {
 
 			var user = result.user;
 
-			if (user.P) {
+			if (user.emailVerified) {
 
 				localUsersService.getFilterData("email", user.email)
 					.subscribe(resp => {
@@ -461,7 +463,7 @@ export class LoginComponent implements OnInit {
 
 								let body = {
 
-									idToken: user.b.b.g
+									idToken: user.accessToken
 								}
 
 								localUsersService.patchData(id, body)
@@ -471,7 +473,7 @@ export class LoginComponent implements OnInit {
 										Almacenamos el Token de seguridad en el localstorage
 										=============================================*/
 
-										localStorage.setItem("idToken", user.b.b.g);
+										localStorage.setItem("idToken", user.accessToken);
 
 										/*=============================================
 										Almacenamos el email en el localstorage
@@ -549,7 +551,7 @@ export class LoginComponent implements OnInit {
 		};
 
 		// Initialize Firebase
-		firebase.initializeApp(firebaseConfig);
+		initializeApp(firebaseConfig);
 
 		//https://firebase.google.com/docs/auth/web/facebook-login
 
@@ -557,13 +559,13 @@ export class LoginComponent implements OnInit {
 		Crea una instancia del objeto proveedor de Google
 		=============================================*/
 
-		var provider = new firebase.auth.GoogleAuthProvider();
+		const provider = new GoogleAuthProvider();
 
 		/*=============================================
 		acceder con una ventana emergente 
 		=============================================*/
-
-		firebase.auth().signInWithPopup(provider).then(function (result) {
+		const auth = getAuth();
+		signInWithPopup(auth, provider).then(function (result) {
 
 			loginFirebaseDatabase(result, localUser, localUsersService)
 
@@ -583,7 +585,7 @@ export class LoginComponent implements OnInit {
 
 			var user = result.user;
 
-			if (user.P) {
+			if (user.emailVerified) {
 
 				localUsersService.getFilterData("email", user.email)
 					.subscribe(resp => {
@@ -600,7 +602,7 @@ export class LoginComponent implements OnInit {
 
 								let body = {
 
-									idToken: user.b.b.g
+									idToken: user.accessToken
 								}
 
 								localUsersService.patchData(id, body)
@@ -610,7 +612,7 @@ export class LoginComponent implements OnInit {
 										Almacenamos el Token de seguridad en el localstorage
 										=============================================*/
 
-										localStorage.setItem("idToken", user.b.b.g);
+										localStorage.setItem("idToken", user.accessToken);
 
 										/*=============================================
 										Almacenamos el email en el localstorage

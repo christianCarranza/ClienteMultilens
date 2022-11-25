@@ -2,7 +2,7 @@
 *ngIf="products.length > 1"
 class="ps-block--bought-toggether">
 
-    <h4>Frequently Bought Together</h4>
+    <h4>Frecuentemente lo compran juntos</h4>
 
     <div class="ps-block__content">
 
@@ -42,16 +42,16 @@ class="ps-block--bought-toggether">
          
             <div class="ps-block__item ps-block__total">
 
-                <p>Total Price:<strong></strong></p>
+                <p>Precio total:<strong></strong></p>
 
                 <a class="ps-btn" 
                    style="cursor:pointer" 
-                   (click)="addShoppingCart(products[0].url, 1, [], products[1].url, 1, [])">Add All to cart</a>
+                   (click)="addShoppingCart(products[0].url, 1, [], products[1].url, 1, [])">Añadir todo al carrito</a>
                 <a class="ps-btn ps-btn--gray ps-btn--outline" 
                    style="cursor: pointer" 
                    (click)="addWishlist(products[0].url, products[1].url)">
 
-               Add All to whishlist</a>
+                   Agregar a la lista de deseos</a>
 
             </div>
 

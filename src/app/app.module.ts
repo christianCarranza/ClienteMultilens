@@ -69,6 +69,7 @@ import { AccountOrdersComponent } from './pages/account/account-profile/account-
 import { AccountDisputesComponent } from './pages/account/account-profile/account-disputes/account-disputes.component';
 import { AccountMessagesComponent } from './pages/account/account-profile/account-messages/account-messages.component';
 import { StoreListComponent } from './pages/store-list/store-list.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
 @NgModule({
@@ -137,7 +138,8 @@ import { StoreListComponent } from './pages/store-list/store-list.component';
     NgxSummernoteModule,
     TagInputModule, 
     BrowserAnimationsModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -524,16 +524,16 @@ export class HomeHotTodayComponent implements OnInit {
 									
 								}
 
-								price = `<p class="ps-product__price sale">$${offer} <del>$${top20Array[i][f].price} </del></p>`;
+								price = `<p class="ps-product__price sale">S/.${offer} <del>S/.${top20Array[i][f].price} </del></p>`;
 
 							}else{
 
-								price =  `<p class="ps-product__price">$${top20Array[i][f].price} </p>`;
+								price =  `<p class="ps-product__price">S/.${top20Array[i][f].price} </p>`;
 							}
 						
 						}else{
 
-							price =  `<p class="ps-product__price">$${top20Array[i][f].price} </p>`;
+							price =  `<p class="ps-product__price">S/.${top20Array[i][f].price} </p>`;
 
 						}
 

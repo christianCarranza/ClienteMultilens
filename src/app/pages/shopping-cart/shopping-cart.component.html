@@ -10,7 +10,7 @@ Breadcrumb
 
         <li><a routerLink="/">Home</a></li>
 
-        <li>Shopping cart</li>
+        <li>Carrito de compras</li>
 
     </ul>
 
@@ -29,7 +29,7 @@ Shopping Car
 
         <div class="ps-section__header">
 
-            <h1>Shopping Cart</h1>
+            <h1>Carrito de compras</h1>
 
         </div>
 
@@ -43,10 +43,10 @@ Shopping Car
 
                         <tr>
 
-                            <th>Product name</th>
-                            <th>PRICE</th>
-                            <th>SHIPPING</th>
-                            <th>QUANTITY</th>
+                            <th>Nombre del producto</th>
+                            <th>PRECIO</th>
+                            <th>ENVÍO</th>
+                            <th>CANTIDAD</th>
                             <th>TOTAL</th>
                             <th></th>
 
@@ -59,7 +59,7 @@ Shopping Car
                     	<tr 
                     	*ngIf="shoppingCart.length == 0">
                     		
-                    		<td colspan="6" class="text-center">You haven't products in the shopping cart yet!</td>	
+                    		<td colspan="6" class="text-center">¡Aún no tienes productos en el carrito de compras!</td>	
 
                     	</tr>
 
@@ -135,7 +135,7 @@ Shopping Car
                 </table>
 
                 <h4 class="d-block d-lg-none text-right text-muted py-3">
-                    Move to <i class="fas fa-long-arrow-alt-right"></i>
+                    Mover a <i class="fas fa-long-arrow-alt-right"></i>
                 </h4>
 
             </div>
@@ -151,13 +151,13 @@ Shopping Car
             <div class="ps-section__cart-actions">
 
                 <a class="ps-btn" routerLink="/">
-                    <i class="icon-arrow-left"></i> Back to Shop
+                    <i class="icon-arrow-left"></i> Volver a la tienda
                 </a>
 
                 <a 
                 *ngIf="shoppingCart.length > 0"
                 class="ps-btn" href="checkout">
-                    Proceed to checkout <i class="icon-arrow-right"></i> 
+                    Pagar <i class="icon-arrow-right"></i> 
                 </a>
 
             </div>

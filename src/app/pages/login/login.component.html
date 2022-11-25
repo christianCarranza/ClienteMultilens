@@ -42,7 +42,7 @@ Login - Register Content
 
                 <li class="">
 
-                	<p><a href="register">Register</a></p>
+                	<p><a href="register">Registrarse</a></p>
 
                 </li>
 
@@ -58,7 +58,7 @@ Login - Register Content
 
                     <div class="ps-form__content">
 
-                        <h5>Log In Your Account</h5>
+                        <h5>Inicie sesión en su cuenta</h5>
 
                         <div class="form-group">
 
@@ -73,10 +73,10 @@ Login - Register Content
                             email
                             required>
 
-                            <div class="valid-feedback">Valid.</div>
+                            <div class="valid-feedback">Valido.</div>
                             <div 
                             *ngIf="f.submitted && f.controls['email'].errors"
-                            class="invalid-feedback">Please fill out this field.</div>
+                            class="invalid-feedback">Por favor rellene este campo.</div>
 
                         </div>
 
@@ -93,12 +93,12 @@ Login - Register Content
                             required
                             >
 
-                            <div class="valid-feedback">Valid.</div>
+                            <div class="valid-feedback">Valido.</div>
                             <div 
                             *ngIf="f.submitted && f.controls['password'].errors"
-                            class="invalid-feedback">Please fill out this field.</div>
+                            class="invalid-feedback">Por favor rellene este campo.</div>
 
-                            <a href="#resetPassword" data-toggle="modal">Forgot?</a>
+                            <a href="#resetPassword" data-toggle="modal">Olvidó?</a>
 
                         </div>
 
@@ -113,7 +113,7 @@ Login - Register Content
                                 name="remember-me"
                                 [(ngModel)]="rememberMe">
 
-                                <label for="remember-me">Remember me</label>
+                                <label for="remember-me">Recordarme</label>
 
                             </div>
 
@@ -129,7 +129,7 @@ Login - Register Content
 
                     <div class="ps-form__footer">
 
-                        <p>Connect with:</p>
+                        <p>Inicia sesion con:</p>
 
                         <ul class="ps-list--social">
 
@@ -175,7 +175,7 @@ Ventana modal para recuperar contraseña
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Reset Password</h4>
+        <h4 class="modal-title">Restablecer la contraseña</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -195,8 +195,8 @@ Ventana modal para recuperar contraseña
                 email
                 required>
 
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Please fill in this field correctly.</div>
+                <div class="valid-feedback">Valido.</div>
+                <div class="invalid-feedback">Por favor complete este campo correctamente.</div>
 
             </div>
 
@@ -205,7 +205,7 @@ Ventana modal para recuperar contraseña
                 <button 
                 type="button"
                 (click)="resetPassword(emailPass.value)"
-                class="ps-btn ps-btn--fullwidth">Submit</button>
+                class="ps-btn ps-btn--fullwidth">Enviar</button>
 
             </div>
 
@@ -215,7 +215,7 @@ Ventana modal para recuperar contraseña
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
 
     </div>

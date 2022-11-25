@@ -37,7 +37,7 @@ class="ps-block--store-banner">
 
             <button 
 			*ngIf="!method"
-            class="btn btn-warning btn-lg" data-target="#newPassword" data-toggle="modal">Change Password</button>
+            class="btn btn-warning btn-lg" data-target="#newPassword" data-toggle="modal">Cambiar Contraseña</button>
 
         </div>
 
@@ -49,7 +49,7 @@ class="ps-block--store-banner">
                 <div class="text-center">
                     <a href="account/orders">
                         <h1><i class="fas fa-shopping-cart text-white"></i></h1>
-                        <h4 class="text-white">Orders <span class="badge badge-secondary rounded-circle">{{ordersPending}}</span></h4>
+                        <h4 class="text-white">Pedidos <span class="badge badge-secondary rounded-circle">{{ordersPending}}</span></h4>
                     </a>
                 </div>
             </div><!-- box /-->
@@ -58,7 +58,7 @@ class="ps-block--store-banner">
                 <div class="text-center">
                     <a href="account/my-store">
                         <h1><i class="fas fa-shopping-bag text-white"></i></h1>
-                        <h4 class="text-white">Products <span class="badge badge-secondary rounded-circle">{{store[0].products}}</span></h4>
+                        <h4 class="text-white">Productos <span class="badge badge-secondary rounded-circle">{{store[0].products}}</span></h4>
                     </a>
                 </div>
             </div><!-- box /-->
@@ -67,7 +67,7 @@ class="ps-block--store-banner">
                 <div class="text-center">
                     <a href="account/disputes">
                         <h1><i class="fas fa-bell text-white"></i></h1>
-                        <h4 class="text-white">Disputes <span class="badge badge-secondary rounded-circle">{{disputes.length}}</span></h4>
+                        <h4 class="text-white">Disputas <span class="badge badge-secondary rounded-circle">{{disputes.length}}</span></h4>
                     </a>
                 </div>
             </div><!-- box /-->
@@ -76,7 +76,7 @@ class="ps-block--store-banner">
                 <div class="text-center">
                     <a href="account/messages">
                         <h1><i class="fas fa-comments text-white"></i></h1>
-                        <h4 class="text-white">Messages <span class="badge badge-secondary rounded-circle">{{messages.length}}</span></h4>
+                        <h4 class="text-white">Mensajes <span class="badge badge-secondary rounded-circle">{{messages.length}}</span></h4>
                     </a>
                 </div>
             </div><!-- box /-->
@@ -186,7 +186,7 @@ MODAL PARA ESCRIBIR LA NUEVA CONTRASEÑA
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">New Password</h4>
+        <h4 class="modal-title">Nueva Contraseña</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
@@ -220,7 +220,7 @@ MODAL PARA ESCRIBIR LA NUEVA CONTRASEÑA
                 <button 
                 type="button"
                 (click)="newPassword(password.value)"
-                class="ps-btn ps-btn--fullwidth">Submit</button>
+                class="ps-btn ps-btn--fullwidth">Enviar</button>
 
             </div>
 
@@ -230,7 +230,7 @@ MODAL PARA ESCRIBIR LA NUEVA CONTRASEÑA
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
 
     </div>
@@ -249,7 +249,7 @@ MODAL PARA CAMBIAR LA FOTO
 
 			<!-- Modal Header -->
 			<div class="modal-header">
-				<h4 class="modal-title">New Picture</h4>
+				<h4 class="modal-title">Nueva Foto</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 
@@ -282,7 +282,7 @@ MODAL PARA CAMBIAR LA FOTO
 				  		<button 
 				  		type="button"
 				  		(click)="uploadImage()"
-				  		class="ps-btn ps-btn--fullwidth">Submit</button>
+				  		class="ps-btn ps-btn--fullwidth">Enviar</button>
 
 				  	</div>
 

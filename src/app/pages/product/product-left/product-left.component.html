@@ -135,24 +135,24 @@ class="ps-product--detail ps-product--fullwidth">
 
                 <figure>
 
-                    <figcaption> Don't Miss Out! This promotion will expires in</figcaption>
+                    <figcaption> ¡NO TE LO PIERDAS! ESTA PROMOCIÓN TERMINARÁ EN</figcaption>
 
                     <ul class="ps-countdown" [attr.data-time]="countd[i]">
 
                         <li><span class="days"></span>
-                            <p>Days</p>
+                            <p>Dias</p>
                         </li>
 
                         <li><span class="hours"></span>
-                            <p>Hours</p>
+                            <p>Horas</p>
                         </li>
 
                         <li><span class="minutes"></span>
-                            <p>Minutes</p>
+                            <p>Minutos</p>
                         </li>
 
                         <li><span class="seconds"></span>
-                            <p>Seconds</p>
+                            <p>Segundos</p>
                         </li>
 
                     </ul>
@@ -161,13 +161,13 @@ class="ps-product--detail ps-product--fullwidth">
 
                 <figure>
 
-                    <figcaption>Sold Items</figcaption>
+                    <figcaption>Productos Vendidos</figcaption>
 
                     <div class="ps-product__progress-bar ps-progress" [attr.data-value]="p.stock">
 
                         <div class="ps-progress__value"><span></span></div>
 
-                        <p><b>{{100-p.stock}}/100</b> Sold</p>
+                        <p><b>{{100-p.stock}}/100</b> Vendidos</p>
 
                     </div>
 
@@ -179,7 +179,7 @@ class="ps-product--detail ps-product--fullwidth">
 
                 <figure>
 
-                    <figcaption>Quantity</figcaption>
+                    <figcaption>Cantidad</figcaption>
 
                     <div class="form-group--number quantity">
 
@@ -197,9 +197,9 @@ class="ps-product--detail ps-product--fullwidth">
 
                 </figure>
 
-                <a class="ps-btn ps-btn--black" style="cursor:pointer" (click)="addShoppingCart(p.url, 1, [])">Add to cart</a>
+                <a class="ps-btn ps-btn--black" style="cursor:pointer" (click)="addShoppingCart(p.url, 1, [])">Añadir al carrito</a>
 
-                <a class="ps-btn" style="cursor:pointer" (click)="buyNow(p.url, 1, [])">Buy Now</a>
+                <a class="ps-btn" style="cursor:pointer" (click)="buyNow(p.url, 1, [])">Comprar ahora</a>
 
                 <div class="ps-product__actions">
 
@@ -213,11 +213,11 @@ class="ps-product--detail ps-product--fullwidth">
 
             <div class="ps-product__specification">
 
-            	<a class="report" href="#">Report Abuse</a> 
+            	<a class="report" href="#">Reportar abuso</a> 
 
                 <p class="categories">
 
-                	<strong> Categories:</strong>
+                	<strong> Categorias:</strong>
 
                 	<a href="products/{{p.category}}">{{p.category}}</a>,
                     <a href="products/{{p.sub_category}}">{{p.sub_category}}</a>,
@@ -225,7 +225,7 @@ class="ps-product--detail ps-product--fullwidth">
 
                 </p>
 
-                <p class="tags"><strong> Tags</strong>
+                <p class="tags"><strong> Palabras claves : </strong>
 
                 	<a 
                     *ngFor="let tag of tags"
@@ -271,11 +271,11 @@ class="ps-product--detail ps-product--fullwidth">
 
         <ul class="ps-tab-list">
 
-            <li class="active"><a href="#tab-1">Description</a></li>
-            <li><a href="#tab-2">Details</a></li>
-            <li><a href="#tab-3">Vendor</a></li>
-            <li><a href="#tab-4">Reviews ({{totalReviews}})</a></li>
-            <li><a href="#tab-5">Questions and Answers</a></li>
+            <li class="active"><a href="#tab-1">Descripción</a></li>
+            <li><a href="#tab-2">Detalles</a></li>
+            <!-- <li><a href="#tab-3">Vendor</a></li> -->
+            <li><a href="#tab-4">Reseñas ({{totalReviews}})</a></li>
+            <li><a href="#tab-5">Preguntas y respuestas</a></li>
 
         </ul>
 
@@ -340,14 +340,14 @@ class="ps-product--detail ps-product--fullwidth">
 
                 <div class="ps-block--questions-answers">
 
-                    <h3>Questions and Answers</h3>
+                    <h3>Preguntas y Respuestas</h3>
 
                     <div class="input-group mb-3 input-group-lg">
 
-                        <input class="form-control" type="text" placeholder="Have a question?" name="question" #question>
+                        <input class="form-control" type="text" placeholder="Cual es tu pregunta?" name="question" #question>
 
                         <div class="input-group-prepend">
-                            <span class="btn btn-warning input-group-text" (click)="newQuestion(question, p.url, p.store)">Send</span>
+                            <span class="btn btn-warning input-group-text" (click)="newQuestion(question, p.url, p.store)">Enviar</span>
                         </div>
                     
                     </div>
@@ -367,7 +367,7 @@ class="ps-product--detail ps-product--fullwidth">
                                  
                                 <div class="media-body">
                                     
-                                    <h4><small><i>Question on {{qa.date_message | date }}</i></small></h4>
+                                    <h4><small><i>Preguntó en {{qa.date_message | date }}</i></small></h4>
                                     <p>{{qa.message}}</p>
 
                                 </div>
@@ -390,7 +390,7 @@ class="ps-product--detail ps-product--fullwidth">
                                  
                                 <div class="media-body text-right">
                                     
-                                    <h4><small><i>Answer on {{qa.date_answer | date }}</i></small></h4>
+                                    <h4><small><i>Respondío en {{qa.date_answer | date }}</i></small></h4>
                                     <p>{{qa.answer}}</p>
 
                                 </div>

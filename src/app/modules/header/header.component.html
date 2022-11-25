@@ -31,22 +31,22 @@
 
                 <div class="header__right">
                     <ul class="header__top-links"> 
-                        <li><a routerLink="become-a-vendor">Sell on MarketPlace</a></li>
-                        <li><a routerLink="store-list">Store List</a></li>
-                    	<li><i class="icon-telephone"></i> Hotline:<strong> 1-800-234-5678</strong></li>                     
+                        <!-- <li><a routerLink="become-a-vendor">Sell on MarketPlace</a></li> -->
+                        <!-- <li><a routerLink="store-list">Store List</a></li> -->
+                    	<li><i class="icon-telephone"></i> Celular:<strong> 951279343</strong></li>                     
                         <li
                         *ngIf="!lang"
                         >
                             <div class="ps-dropdown language">
                                 <a style="cursor:pointer" (click)="changeLang('en')">
                                     <img src="{{path}}img/template/en.png" alt="">
-                                    English
+                                    Ingles
                                 </a>
                                 <ul class="ps-dropdown-menu">
                                     <li>
                                         <a style="cursor:pointer" (click)="changeLang('es')">
                                             <img src="{{path}}img/template/es.png" alt=""> 
-                                            Spanish
+                                            Español
                                         </a>
                                     </li>
                                 </ul>
@@ -58,13 +58,13 @@
                             <div class="ps-dropdown language">
                                 <a style="cursor:pointer" (click)="changeLang('es')">
                                     <img src="{{path}}img/template/es.png" alt=""> 
-                                    Spanish
+                                    Español
                                 </a>
                                 <ul class="ps-dropdown-menu">
                                     <li>
                                         <a style="cursor:pointer" (click)="changeLang('en')">
                                            <img src="{{path}}img/template/en.png" alt="">
-                                            English
+                                            Ingles
                                         </a>
                                     </li>
                                 </ul>
@@ -103,7 +103,7 @@
                         
                         <div class="menu__toggle">
                         	<i class="icon-menu"></i>
-                        	<span> Shop by Department</span>
+                        	<span>Comprar por categoria</span>
                         </div>
 
                         <div class="menu__content">
@@ -160,11 +160,11 @@
                         #search
                         class="form-control" 
                         type="text" 
-                        placeholder="I'm shopping for...">
+                        placeholder="Yo estoy buscando...">
 
                         <button type="button"
                         (click)="goSearch(search.value)"
-                        >Search</button>
+                        >Buscar</button>
 
                     </form>
 
@@ -220,9 +220,9 @@
                                             <div [innerHTML]="product.details"></div>                                        
                                             <small class="ps-product text-left p-0 m-0">
                                                 
-                                                Quantity:
+                                                Cantidad:
                                                 <span class="qShoppingHeader">{{product.quantity}}</span> 
-                                                x Shipping: $
+                                                x Envio: S/.
                                                 <span class="sShoppingHeader">{{product.shipping}}</span> 
                                                 + 
                                                 <span class="pShoppingHeader" [innerHTML]="product.price"></span>
@@ -241,8 +241,8 @@
 
                                     <div [innerHTML]="subTotal"></div>
                                     <figure>
-                                    	<a class="ps-btn" routerLink="shopping-cart">View Cart</a>
-                                    	<a class="ps-btn" routerLink="checkout">Checkout</a>
+                                    	<a class="ps-btn" routerLink="shopping-cart">Ver Carrito</a>
+                                    	<a class="ps-btn" routerLink="checkout">Pagar</a>
                                     </figure>
 
                                 </div>
@@ -263,7 +263,7 @@
                             </div>
                             <div class="ps-block__right">
                             	<a routerLink="login">Login</a>
-                            	<a routerLink="register">Register</a>
+                            	<a routerLink="register">Registrarse</a>
                             </div>
                         </div>
 
@@ -279,7 +279,7 @@
                                 </a>                               
                             </div>
                             <div class="ps-block__right">
-                              <a routerLink="account">My Account</a>
+                              <a routerLink="account">Mi Cuenta</a>
                             </div>
                         </div>
 

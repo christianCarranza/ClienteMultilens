@@ -32,9 +32,9 @@ Exportamos la ruta para tomar imágenes
 =============================================*/
 Path = {
 
-	url: domain+'assets/'
+	// url: domain+'assets/'
 	//Cuando necestiemos trabajar con certificado SSL (registro o ingreso con facebook)
-	// url: 'https://localhost:4200/assets/'
+	url: 'https://localhost:4200/assets/'
 
 }
 

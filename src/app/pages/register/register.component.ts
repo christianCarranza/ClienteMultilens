@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import firebase from 'firebase/compat/app';
-import "firebase/auth";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
 
 import { Capitalize, Sweetalert } from '../../functions';
 
@@ -218,32 +218,48 @@ export class RegisterComponent implements OnInit {
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    // firebase.initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
 
     //https://firebase.google.com/docs/auth/web/facebook-login
 
     /*=============================================
     Crea una instancia del objeto proveedor de Facebook
     =============================================*/
-
-    var provider = new firebase.auth.FacebookAuthProvider();
+    const auth = getAuth();
+    const provider = new FacebookAuthProvider();
 
     /*=============================================
     acceder con una ventana emergente y con certificado SSL (https)
     =============================================*/
     //ng serve --ssl true --ssl-cert "/path/to/file.crt" --ssl-key "/path/to/file.key"
 
-    firebase.auth().signInWithPopup(provider).then(function (result: any) {
+    signInWithPopup(auth, provider)
+      .then((result) => {
 
-      registerFirebaseDatabase(result, localUser, localUsersService)
+        registerFirebaseDatabase(result, localUser, localUsersService)
 
-    }).catch(function (error: { message: any; }) {
+      })
+      .catch((error) => {
 
-      var errorMessage = error.message;
+        var errorMessage = error.message;
 
-      Sweetalert.fnc("error", errorMessage, "register");
+        Sweetalert.fnc("error", "Error al registrar cuenta", "register");
 
-    });
+      });
+
+
+    // firebase.auth().signInWithPopup(provider).then(function (result: any) {
+
+    //   registerFirebaseDatabase(result, localUser, localUsersService)
+
+    // }).catch(function (error: { message: any; }) {
+
+    //   var errorMessage = error.message;
+
+    //   Sweetalert.fnc("error", errorMessage, "register");
+
+    // });
 
     /*=============================================
   Registramos al usuario en Firebase Database
@@ -326,45 +342,58 @@ export class RegisterComponent implements OnInit {
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    // firebase.initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
 
     //https://firebase.google.com/docs/auth/web/google-signin
 
     /*=============================================
     Crea una instancia del objeto proveedor de Google
     =============================================*/
+    const provider = new GoogleAuthProvider();
 
-    var provider = new firebase.auth.GoogleAuthProvider();
+    // var provider = new firebase.auth.GoogleAuthProvider();
 
     /*=============================================
     acceder con una ventana emergente 
     =============================================*/
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        debugger
+        registerFirebaseDatabase(result, localUser, localUsersService)
 
-    firebase.auth().signInWithPopup(provider).then(function (result: any) {
+      }).catch((error) => {
+        
+        var errorMessage = error.message;
 
-      registerFirebaseDatabase(result, localUser, localUsersService)
+        Sweetalert.fnc("error", "Error al registrar cuenta", "register");
+      });
 
-    }).catch(function (error: { message: any; }) {
+    // firebase.auth().signInWithPopup(provider).then(function (result: any) {
 
-      var errorMessage = error.message;
+    //   registerFirebaseDatabase(result, localUser, localUsersService)
 
-      Sweetalert.fnc("error", errorMessage, "register");
+    // }).catch(function (error: { message: any; }) {
 
-    });
+    //   var errorMessage = error.message;
+
+    //   Sweetalert.fnc("error", errorMessage, "register");
+
+    // });
 
     /*=============================================
   Registramos al usuario en Firebase Database
   =============================================*/
-
     function registerFirebaseDatabase(result: { user: any; }, localUser: UsersModel, localUsersService: UsersService) {
 
       var user = result.user;
 
-      if (user.P) {
+      if (user.emailVerified) {
 
         localUser.displayName = user.displayName;
         localUser.email = user.email;
-        localUser.idToken = user.b.b.g;
+        localUser.idToken = user.accessToken;
         localUser.method = "google";
         localUser.username = user.email.split('@')[0];
         localUser.picture = user.photoURL;
@@ -378,7 +407,7 @@ export class RegisterComponent implements OnInit {
 
             if (Object.keys(resp).length > 0) {
 
-              Sweetalert.fnc("error", `You're already signed in, please login with ${resp[Object.keys(resp)[0]].method} method`, "login")
+              Sweetalert.fnc("error", `Ya se encuentra registrado, Por favor inicie sesion con el metodo ${resp[Object.keys(resp)[0]].method} `, "login")
 
             } else {
 
@@ -387,7 +416,7 @@ export class RegisterComponent implements OnInit {
 
                   if (resp["name"] != "") {
 
-                    Sweetalert.fnc("success", "Please Login with google", "login");
+                    Sweetalert.fnc("success", "Por favor inicie sesión con google", "login");
 
                   }
 
