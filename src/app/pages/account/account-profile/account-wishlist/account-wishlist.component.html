@@ -5,20 +5,20 @@ Nav Account
 <div class="ps-section__content">
 
     <ul class="ps-section__links">
-        <li  class="active"><a href="/account">My Wishlist</a></li>
-        <li><a href="/account/my-shopping">My Shopping</a></li>
+        <li  class="active"><a href="/account">Mi lista de deseos</a></li>
+        <li><a href="/account/my-shopping">Mis compras</a></li>
 
         <li
         *ngIf="!is_vendor"
-        ><a href="/account/new-store">My Store</a></li>
+        ><a href="/account/new-store">Mi tienda</a></li>
 
         <li
         *ngIf="is_vendor"
-        ><a href="/account/my-store">My Store</a></li>
+        ><a href="/account/my-store">Mi tienda</a></li>
 
         <li
         *ngIf="is_vendor"
-        ><a href="/account/my-sales">My Sales</a></li>
+        ><a href="/account/my-sales">Mis ventas</a></li>
     </ul>
 
     <!--=====================================
@@ -33,11 +33,11 @@ Nav Account
 
                 <tr>               
 
-                    <th>Product name</th>
+                    <th>Producto nombre</th>
 
-                    <th>Unit Price</th>
+                    <th>Precio unitario</th>
 
-                    <th>Stock Status</th>
+                    <th>Stock estado</th>
 
                     <th></th>
 
@@ -52,7 +52,7 @@ Nav Account
                 <tr
                 *ngIf="products.length == 0">
                 
-                    <td colspan="3" class="text-center">You haven't products in the wishlist yet!</td>    
+                    <td colspan="3" class="text-center">¡Aún no tienes productos en la lista de deseos!</td>    
                 </tr>
 
                 <!-- Product -->
@@ -98,11 +98,11 @@ Nav Account
                         
                          <span 
                          *ngIf="product.stock == 0"
-                         class="ps-tag ps-tag--out-stock">Out-stock</span>
+                         class="ps-tag ps-tag--out-stock">Sin-stock</span>
 
                          <span 
                          *ngIf="product.stock > 0"
-                         class="ps-tag ps-tag--in-stock">In-stock</span>
+                         class="ps-tag ps-tag--in-stock">En-stock</span>
 
                     </td>
 
@@ -110,7 +110,7 @@ Nav Account
                         <a 
                         *ngIf="product.stock > 0"
                         class="ps-btn" style="cursor:pointer" (click)="addShoppingCart(product.url, 1, [])">
-                            Add to cart
+                            Añadir a la cesta
                         </a>
                     </td>
 

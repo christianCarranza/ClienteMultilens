@@ -5,20 +5,20 @@ Nav Account
 <div class="ps-section__content">
 
     <ul class="ps-section__links">
-        <li><a href="/account">My Wishlist</a></li>
-        <li class="active"><a href="/account/my-shopping">My Shopping</a></li>
+        <li><a href="/account">Mi lista de deseos</a></li>
+        <li class="active"><a href="/account/my-shopping">Mis compras</a></li>
        
         <li
         *ngIf="!is_vendor"
-        ><a href="/account/new-store">My Store</a></li>
+        ><a href="/account/new-store">Nueva tienda</a></li>
 
         <li
         *ngIf="is_vendor"
-        ><a href="/account/my-store">My Store</a></li>
+        ><a href="/account/my-store">Mi tienda</a></li>
 
         <li
         *ngIf="is_vendor"
-        ><a href="account/my-sales">My Sales</a></li>
+        ><a href="account/my-sales">Mis ventas</a></li>
     </ul>
 
 
@@ -34,17 +34,17 @@ Nav Account
 
                 <tr>    
 
-                    <th>Date</th>
+                    <th>Fecha</th>
   
-                    <th>Product name</th>
+                    <th>Nombre Producto</th>
 
-                    <th>Process</th>
+                    <th>Proceso</th>
 
-                    <th>Price</th>
+                    <th>Precio</th>
 
-                    <th>Quantity</th>
+                    <th>Cantidad</th>
 
-                    <th>Review</th>
+                    <th>Calificar</th>
 
                 </tr>
 
@@ -55,7 +55,7 @@ Nav Account
             	<tr
                 *ngIf="myShopping.length == 0">
 
-					<td colspan="5" class="text-center">You haven't products in your shopping's yet!</td>    
+					<td colspan="5" class="text-center">¡Aún no tienes productos en tus compras!</td>    
 
             	</tr>
 
@@ -101,8 +101,8 @@ Nav Account
                             class="success"> 
 
                                 <h5>{{process[i][0].date | date}}</h5>
-                                <p class="text-success">Reviewed <i class="fas fa-check"></i></p>
-                                <p>Comment: {{process[i][0].comment}}</p>
+                                <p class="text-success">Revisado <i class="fas fa-check"></i></p>
+                                <p>Comentario: {{process[i][0].comment}}</p>
                                 
                             </li>
 
@@ -117,8 +117,8 @@ Nav Account
                             class="success"> 
 
                                 <h5>{{process[i][1].date | date}}</h5>
-                                <p class="text-success">Sent <i class="fas fa-check"></i></p>
-                                <p>Comment: {{process[i][1].comment}}</p>
+                                <p class="text-success">Enviado <i class="fas fa-check"></i></p>
+                                <p>Comentario: {{process[i][1].comment}}</p>
                                 
                             </li>
 
@@ -128,10 +128,10 @@ Nav Account
                             *ngIf="process[i][1].stage == 'sent' && process[i][1].status != 'ok'" 
                             class="process">
                                 <h5>{{process[i][1].date | date}}</h5>         
-                                <p>Sent</p>
+                                <p>Enviado</p>
                                 <button class="btn btn-primary" disabled>
                                   <span class="spinner-border spinner-border-sm"></span>
-                                  In process
+                                  En proceso
                                 </button>
                             </li>
 
@@ -146,8 +146,8 @@ Nav Account
                             class="success"> 
 
                                 <h5>{{process[i][1].date | date}}</h5>
-                                <p class="text-success">Delivered <i class="fas fa-check"></i></p>
-                                <p>Comment: {{process[i][2].comment}}</p>
+                                <p class="text-success">Entregada <i class="fas fa-check"></i></p>
+                                <p>Comentario: {{process[i][2].comment}}</p>
                                 
                             </li>
 
@@ -157,10 +157,10 @@ Nav Account
                             *ngIf="process[i][2].stage == 'delivered' && process[i][2].status != 'ok'" 
                             class="process">
                                 <h5>{{process[i][2].date | date}}</h5>         
-                                <p>Delivered</p>
+                                <p>Entregada</p>
                                 <button class="btn btn-primary" disabled>
                                   <span class="spinner-border spinner-border-sm"></span>
-                                  In process
+                                  En proceso
                                 </button>
                             </li>
                            
@@ -172,7 +172,7 @@ Nav Account
 
                         <a 
                         *ngIf="process[i][2].stage == 'delivered' && process[i][2].status != 'ok'" 
-                        class="btn btn-danger btn-lg text-white" (click)="newDispute(id_order[i], product.store, product.user)">Open Dispute</a>
+                        class="btn btn-danger btn-lg text-white" (click)="newDispute(id_order[i], product.store, product.user)">Abrir disputa</a>
 
                         <!--=====================================
                         Visualizar las disputas
@@ -187,7 +187,7 @@ Nav Account
                                
                                 <div class="media border p-3">
                                     <div class="media-body">
-                                        <h4><small><i>Dispute on {{dispute.date_dispute | date }}</i></small></h4>
+                                        <h4><small><i>Disputa en {{dispute.date_dispute | date }}</i></small></h4>
                                         <p>{{dispute.message }}</p>
                                     </div>
 
@@ -206,7 +206,7 @@ Nav Account
 
                                     <img src="{{path}}img/stores/{{dispute.store.url}}/{{dispute.store.logo}}" class="ml-3 mt-3 rounded-circle" style="width:60px;">
                                     <div class="media-body text-right">
-                                        <h4><small><i>Answer on {{dispute.date_answer | date }}</i></small></h4>
+                                        <h4><small><i>Respuesta en {{dispute.date_answer | date }}</i></small></h4>
                                         <p>{{dispute.answer }}</p>
                                     </div>
 
@@ -220,11 +220,11 @@ Nav Account
                     	======================================-->
                         <a 
 						*ngIf="process[i][2].stage == 'delivered' && process[i][2].status == 'ok'" 
-                        class="btn btn-warning btn-lg" href="product/{{product.url}}">Repurchase</a>
+                        class="btn btn-success btn-lg" href="product/{{product.url}}">Readquirir</a>
 
                     </td> 
 
-                    <td class="price text-center">${{product.price}}</td>
+                    <td class="price text-center">S/{{product.price}}</td>
 
                     <td class="text-center">{{product.quantity}}</td>
 
@@ -238,7 +238,7 @@ Nav Account
                     >
 	                    <div class="text-center  mt-2">
   
-                            <a class="btn btn-warning btn-lg disabled">Add comment</a>
+                            <a class="btn btn-success btn-lg text-light disabled">Agregar comentario</a>
 
                         </div>
 
@@ -270,7 +270,7 @@ Nav Account
 
                         </div>
 
-                        <a class="btn btn-warning btn-lg" (click)="newReview(product.user,product.url)">Add comment</a>
+                        <a class="btn btn-success text-light btn-lg" (click)="newReview(product.user,product.url)">Agregar comentario</a>
 
                     </td>
 
@@ -301,7 +301,7 @@ Nav Account
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">New Dispute</h4>
+                        <h4 class="modal-title">Nueva disputa</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
@@ -310,7 +310,7 @@ Nav Account
 
                         <div class="form-group">
 
-                            <label>Type your message</label>
+                            <label>Escribe tu mensaje</label>
 
                             <div class="form-group__content">
                                 
@@ -331,7 +331,7 @@ Nav Account
                     <div class="modal-footer">
 
                         <div class="float-right">
-                            <button type="submit" class="btn btn-warning btn-lg">Send</button>
+                            <button type="submit" class="btn btn-success btn-lg">Enviar</button>
                         </div>
                        
                     </div>
@@ -358,7 +358,7 @@ Nav Account
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">New Review</h4>
+                    <h4 class="modal-title">Nueva Valoración</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
@@ -380,7 +380,7 @@ Nav Account
 
                     <div class="form-group">
 
-                        <label>Type your comment</label>
+                        <label>Escriba su comentario</label>
 
                         <div class="form-group__content">
 
@@ -401,7 +401,7 @@ Nav Account
                 <div class="modal-footer">
 
                     <div class="float-right">
-                        <button type="button" class="btn btn-warning btn-lg" (click)="submitReview(comment, review)">Send</button>
+                        <button type="button" class="btn btn-success btn-lg" (click)="submitReview(comment, review)">Enviar</button>
                     </div>
                    
                 </div>

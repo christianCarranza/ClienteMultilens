@@ -272,7 +272,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy  {
 					Mostramos subtotales de cada producto
 					=============================================*/
 
-					$(subTotalPrice[i]).html(`$${subTotal.toFixed(2)}`)
+					$(subTotalPrice[i]).html(`S/${subTotal.toFixed(2)}`)
 
 	    		}
 
@@ -283,13 +283,13 @@ export class ShoppingCartComponent implements OnInit, OnDestroy  {
 	    		localShoppingCart.forEach(value=>{
 
 	    			let start = value.price.substr(54);
-	    			let end = start.slice(0,-11);
-	    			
+	    			let end = start.slice(1,-11);
+	    			debugger
 	    			total += (Number(end) + Number(value.shipping)) * Number(value.quantity);
 
 	    		})
 
-	    		$(".totalP").html(`$${total.toFixed(2)}`)
+	    		$(".totalP").html(`S/${total.toFixed(2)}`)
 
 	    	}
 

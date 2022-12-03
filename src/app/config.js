@@ -23,7 +23,7 @@ Entorno Desarollo
 }else{
 
 	domain = 'http://localhost:4200/';
-	domain2 = 'http://localhost:4200/src/';
+	domain2 = 'http://proyectotesis.test/ClienteMultilens/src/';
 	
 }
 

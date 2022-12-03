@@ -214,7 +214,8 @@ export class RegisterComponent implements OnInit {
       projectId: "multi-lens",
       storageBucket: "multi-lens.appspot.com",
       messagingSenderId: "1073333159100",
-      appId: "1:1073333159100:web:7aedad4b110da722dd3cb9"
+      appId: "1:1073333159100:web:7aedad4b110da722dd3cb9",
+      measurementId: "G-8K3BJ1NPM6"
     };
 
     // Initialize Firebase
@@ -338,7 +339,8 @@ export class RegisterComponent implements OnInit {
       projectId: "multi-lens",
       storageBucket: "multi-lens.appspot.com",
       messagingSenderId: "1073333159100",
-      appId: "1:1073333159100:web:7aedad4b110da722dd3cb9"
+      appId: "1:1073333159100:web:7aedad4b110da722dd3cb9",
+      measurementId: "G-8K3BJ1NPM6"
     };
 
     // Initialize Firebase
@@ -364,7 +366,7 @@ export class RegisterComponent implements OnInit {
         registerFirebaseDatabase(result, localUser, localUsersService)
 
       }).catch((error) => {
-        
+
         var errorMessage = error.message;
 
         Sweetalert.fnc("error", "Error al registrar cuenta", "register");

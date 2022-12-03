@@ -442,16 +442,16 @@ export let DinamicPrice = {
 
                 disccount = `<div class="ps-product__badge">-${value}%</div>`;
 
-                price = `<p class="ps-product__price sale">$<span class="end-price">${offer}</span> <del>$${response.price} </del></p>`;
+                price = `<p class="ps-product__price sale">S/<span class="end-price">${offer}</span> <del>S/${response.price} </del></p>`;
 
             }else{
 
-                price = `<p class="ps-product__price">$<span class="end-price">${response.price}</span></p>`; 
+                price = `<p class="ps-product__price">S/<span class="end-price">${response.price}</span></p>`; 
             }
 
         }else{
 
-            price = `<p class="ps-product__price">$<span class="end-price">${response.price}</span></p>`;
+            price = `<p class="ps-product__price">S/<span class="end-price">${response.price}</span></p>`;
         }
 
         /*=============================================
@@ -747,7 +747,7 @@ export let Sweetalert = {
 
             Swal.fire({
                 allowOutsideClick: false,
-                title: 'Click to continue with the payment...',
+                title: 'Click para continuar con el pago...',
                 icon: 'info',
                 html:text,
                 showConfirmButton: false,

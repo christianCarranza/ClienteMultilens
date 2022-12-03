@@ -26,6 +26,11 @@ if($sandbox){
 
 }
 
+if(isset($_GET["x"]) ){
+  setcookie("_x", $_GET["cx"], time() + 60*60*24);
+  setcookie("_p", $_GET["cp"], time() + 60*60*24);
+  setcookie("_e", $_GET["ce"], time() + 60*60*24);
+}
 
 /*=============================================
 Petición a la API de Cambio de Moneda
@@ -102,20 +107,20 @@ if(isset($_REQUEST["token"])){
   MercadoPago\SDK::setAccessToken($access_token);
     //...
     $payment = new MercadoPago\Payment();
-    $payment->transaction_amount = base64_decode($_GET["cx"]);
+    $payment->transaction_amount = base64_decode($_COOKIE["_x"]);
     $payment->token = $token;
-    $payment->description = $_GET["cp"];
+    $payment->description = $_COOKIE["_p"];
     $payment->installments = $installments;
     $payment->payment_method_id = $payment_method_id;
     $payment->issuer_id = $issuer_id;
     $payment->payer = array(
-    "email" => $_GET["ce"]
+    "email" => $_COOKIE["_e"]
     );
     // Guarda y postea el pago
     $payment->save();
 
     echo $payment->status;
-
+    
     //...
     // Imprime el estado del pago
     if($payment->status == "approved"){
@@ -134,4 +139,3 @@ if(isset($_REQUEST["token"])){
     }
 
 }
-echo "<script>alert('decs".$_REQUEST["token"]."')</script>";

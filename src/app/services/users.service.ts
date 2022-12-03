@@ -249,7 +249,7 @@ export class UsersService {
 
 			if(!resp){
 
-				Sweetalert.fnc("error", "The user must be logged in", null)
+				Sweetalert.fnc("error", "Debe iniciar sesion", null)
 
 				return;
 
@@ -305,7 +305,7 @@ export class UsersService {
 
       						if(length != wishlist.length){
 
-      							Sweetalert.fnc("error", "It already exists on your wishlist", null);
+      							Sweetalert.fnc("error", "Ya existe en tu lista de deseos", null);
 
       						}else{
 
@@ -325,7 +325,7 @@ export class UsersService {
                         
                         $(".totalWishlist").html(totalWishlist+1); 
 
-          							Sweetalert.fnc("success","Product added to wishlist", null);
+          							Sweetalert.fnc("success","Producto añadido a la lista de deseos", null);
           						}
 
           					})
@@ -350,7 +350,7 @@ export class UsersService {
                         
                       $(".totalWishlist").html(totalWishlist+1); 
 
-        							Sweetalert.fnc("success","Product added to wishlist", null);
+        							Sweetalert.fnc("success","Producto añadido a la lista de deseos", null);
         						}
 
 
@@ -378,7 +378,7 @@ export class UsersService {
                         
                     $(".totalWishlist").html(totalWishlist+1); 
 
-      							Sweetalert.fnc("success","Product added to wishlist", null);
+      							Sweetalert.fnc("success","Producto añadido a la lista de deseos", null);
       						}
 
       					})
@@ -420,7 +420,7 @@ export class UsersService {
 
                 if(resp[i]["stock"] == 0){
 
-                    Sweetalert.fnc("error", "Out of Stock", null);
+                    Sweetalert.fnc("error", "Agotado, Producto sin stock", null);
 
                     return;
                 }
@@ -504,7 +504,7 @@ export class UsersService {
 
             localStorage.setItem("list", JSON.stringify(arrayList));
 
-            Sweetalert.fnc("success", "Product added to Shopping Cart", item["url"])
+            Sweetalert.fnc("success", "Producto agregado al carrito de compras", item["url"])
 
         }else{
 
@@ -514,7 +514,7 @@ export class UsersService {
 
             localStorage.setItem("list", JSON.stringify(arrayList));
 
-            Sweetalert.fnc("success", "Product added to Shopping Cart", item["url"])
+            Sweetalert.fnc("success", "Producto agregado al carrito de compras", item["url"])
 
         }
     

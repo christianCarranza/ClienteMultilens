@@ -5,10 +5,10 @@ Nav Account
 <div class="ps-section__content">
 
      <ul class="ps-section__links">
-        <li><a href="/account">My Wishlist</a></li>
-        <li><a href="/account/my-shopping">My Shopping</a></li>
-        <li><a href="/account/my-store">My Store</a></li>
-        <li><a href="account/my-sales">My Sales</a></li>
+        <li><a href="/account">Mi lista de deseos</a></li>
+        <li><a href="/account/my-shopping">Mis compras</a></li>
+        <li><a href="/account/my-store">Mi tienda</a></li>
+        <li><a href="account/my-sales">Mis ventas</a></li>
     </ul>
 
     <div class="table-responsive mt-4">
@@ -19,21 +19,21 @@ Nav Account
 
 	            <tr>   
 
-	            	<th>Dispute Id</th> 
+	            	<th>Disputa Id</th> 
 
-	            	<th>Order Id</th>        
+	            	<th>Orden Id</th>        
 
-	            	<th>Date dispute</th>
+	            	<th>Fecha disputa</th>
 
-	                <th>Transmitter</th>
+	                <th>Envío</th>
 
-	                <th>Receiver</th>
+	                <th>Recibío</th>
 
-	                <th>Message</th>
+	                <th>Mensaje</th>
 
-	                <th>Date Answer</th>
+	                <th>Fecha Respuesta</th>
 
-	                <th>Answer</th>
+	                <th>Respuesta</th>
 
 	            </tr>
 
@@ -44,7 +44,7 @@ Nav Account
 	            <tr
 	            *ngIf="disputes.length == 0">
 	            
-	                <td colspan="8" class="text-center">You haven't disputes!</td>    
+	                <td colspan="8" class="text-center">¡No tienes disputas!</td>    
 	            </tr>
 
 	            <tr
@@ -57,7 +57,7 @@ Nav Account
             			 <div 
             			 class="text-center" 
             			 *ngIf="dispute.answer == null">
-            			 	<button type="button" class="btn btn-danger mt-2" (click)="answerDispute(idDisputes[i])">Answer dispute</button>
+            			 	<button type="button" class="btn btn-danger mt-2" (click)="answerDispute(idDisputes[i])">Responder disputa</button>
             			 </div>
 
 
@@ -116,7 +116,7 @@ Nav Account
 
                     <!-- Modal Header -->
                     <div class="modal-header">
-                        <h4 class="modal-title">Answer Dispute</h4>
+                        <h4 class="modal-title">Responder disputa</h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
 
@@ -125,7 +125,7 @@ Nav Account
 
                         <div class="form-group">
 
-                            <label>Type your message</label>
+                            <label>Escribe tu mensaje</label>
 
                             <div class="form-group__content">
                                 
@@ -146,7 +146,7 @@ Nav Account
                     <div class="modal-footer">
 
                         <div class="float-right">
-                            <button type="submit" class="btn btn-warning btn-lg">Send</button>
+                            <button type="submit" class="btn btn-warning btn-lg">Enviar</button>
                         </div>
                        
                     </div>

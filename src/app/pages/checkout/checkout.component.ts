@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { Path, Payu, MercadoPago  } from '../../config';
+import { Path, Payu, MercadoPago } from '../../config';
 import { Sweetalert, DinamicPrice, Paypal } from '../../functions';
 
-import { Router, ActivatedRoute  } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { UsersModel } from '../../models/users.model';
 
@@ -18,39 +18,39 @@ import * as Cookies from 'js-cookie';
 
 import { Md5 } from 'md5-typescript';
 
-declare var jQuery:any;
-declare var $:any;
+declare var jQuery: any;
+declare var $: any;
 
 @Component({
-  selector: 'app-checkout',
-  templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+	selector: 'app-checkout',
+	templateUrl: './checkout.component.html',
+	styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
 
-	path:string = Path.url;
+	path: string = Path.url;
 	user: UsersModel;
-	id:string = null;
-	saveAddress:boolean = false;
-	countries:any=null;
-	dialCode:string = null;
+	id: string = null;
+	saveAddress: boolean = false;
+	countries: any = null;
+	dialCode: string = null;
 	shoppingCart: any[] = [];
-	totalShoppingCart:number = 0;
-	render:boolean = true;
-	totalP:string = ` <h3 class="text-right">Total <span class="totalCheckout"><div class="spinner-border"></div></span></h3>`
-	totalPrice:any[] = [];
-	subTotalPrice:any[] = [];
-	paymentMethod:string = "";
-	addInfo:string = "";
-	validateCoupon:boolean = false;
+	totalShoppingCart: number = 0;
+	render: boolean = true;
+	totalP: string = ` <h3 class="text-right">Total <span class="totalCheckout"><div class="spinner-border"></div></span></h3>`
+	totalPrice: any[] = [];
+	subTotalPrice: any[] = [];
+	paymentMethod: string = "";
+	addInfo: string = "";
+	validateCoupon: boolean = false;
 
-	constructor(private router:Router,
-				private usersService:UsersService,
-				private productsService: ProductsService,
-				private ordersService:OrdersService,
-				private salesService: SalesService,
-				private storesService: StoresService,
-				private activatedRoute:ActivatedRoute ) {
+	constructor(private router: Router,
+		private usersService: UsersService,
+		private productsService: ProductsService,
+		private ordersService: OrdersService,
+		private salesService: SalesService,
+		private storesService: StoresService,
+		private activatedRoute: ActivatedRoute) {
 
 		this.user = new UsersModel();
 
@@ -59,63 +59,63 @@ export class CheckoutComponent implements OnInit {
 	ngOnInit(): void {
 
 		/*=============================================
-  		Validar la existencia de un cupón de la tienda
-  		=============================================*/
-  		if(Cookies.get('coupon') != undefined){
+			Validar la existencia de un cupón de la tienda
+			=============================================*/
+		if (Cookies.get('coupon') != undefined) {
 
-  			this.storesService.getFilterData("url", Cookies.get('coupon'))
-  			.subscribe(resp=>{
+			this.storesService.getFilterData("url", Cookies.get('coupon'))
+				.subscribe(resp => {
 
-  				this.validateCoupon = true;		
+					this.validateCoupon = true;
 
-  			})
-  		}
+				})
+		}
 
 
 		/*=============================================
 		Validar si existe usuario autenticado
 		=============================================*/
 
-		this.usersService.authActivate().then(resp=>{
+		this.usersService.authActivate().then(resp => {
 
-			if(resp){
+			if (resp) {
 
 				this.usersService.getFilterData("idToken", localStorage.getItem("idToken"))
-				.subscribe(resp=>{
+					.subscribe(resp => {
 
-					this.id = Object.keys(resp).toString();
+						this.id = Object.keys(resp).toString();
 
-					for(const i in resp){
+						for (const i in resp) {
 
-						this.user.displayName = resp[i].displayName;
-						this.user.username = resp[i].username;
-						this.user.email = resp[i].email;
-						this.user.country = resp[i].country;
-						this.user.city = resp[i].city;
+							this.user.displayName = resp[i].displayName;
+							this.user.username = resp[i].username;
+							this.user.email = resp[i].email;
+							this.user.country = resp[i].country;
+							this.user.city = resp[i].city;
 
-						if(resp[i].phone != undefined){
+							if (resp[i].phone != undefined) {
 
-							this.user.phone = resp[i].phone.split("-")[1]
-							this.dialCode = resp[i].phone.split("-")[0]
+								this.user.phone = resp[i].phone.split("-")[1]
+								this.dialCode = resp[i].phone.split("-")[0]
+
+							}
+
+							this.user.address = resp[i].address;
+
+							/*=============================================
+							Traer listado de países
+							=============================================*/
+
+							this.usersService.getCountries()
+								.subscribe(resp => {
+
+									this.countries = resp;
+
+								})
 
 						}
 
-						this.user.address = resp[i].address;
-
-						/*=============================================
-						Traer listado de países
-						=============================================*/
-
-						this.usersService.getCountries()
-						.subscribe(resp=>{
-							
-							this.countries = resp;
-
-						})
-			
-					}
-
-				})
+					})
 
 			}
 
@@ -125,13 +125,13 @@ export class CheckoutComponent implements OnInit {
 		Traer la lista del carrito de compras
 		=============================================*/
 
-		if(localStorage.getItem("list")){
+		if (localStorage.getItem("list")) {
 
 			let list = JSON.parse(localStorage.getItem("list"));
 
 			this.totalShoppingCart = list.length;
 
-			if(list.length == 0){
+			if (list.length == 0) {
 
 				this.router.navigateByUrl("/shopping-cart");
 
@@ -142,83 +142,83 @@ export class CheckoutComponent implements OnInit {
 			/*=============================================
 			Recorremos el arreglo del listado
 			=============================================*/
-			
-			for(const i in list){
+
+			for (const i in list) {
 
 				/*=============================================
 				Filtramos los productos del carrito de compras
 				=============================================*/
 
 				this.productsService.getFilterData("url", list[i].product)
-				.subscribe(resp=>{
+					.subscribe(resp => {
 
-					for(const f in resp){
+						for (const f in resp) {
 
-						let details = `<div class="list-details small text-secondary">`
+							let details = `<div class="list-details small text-secondary">`
 
-						if(list[i].details.length > 0){
+							if (list[i].details.length > 0) {
 
-							let specification = JSON.parse(list[i].details);	
+								let specification = JSON.parse(list[i].details);
 
-							for(const i in specification){
+								for (const i in specification) {
 
-								let property = Object.keys(specification[i]);
+									let property = Object.keys(specification[i]);
 
-								for(const f in property){
+									for (const f in property) {
 
-									details += `<div>${property[f]}: ${specification[i][property[f]]}</div>`
+										details += `<div>${property[f]}: ${specification[i][property[f]]}</div>`
+									}
+
+								}
+
+							} else {
+
+								/*=============================================
+								Mostrar los detalles por defecto del producto 
+								=============================================*/
+
+								if (resp[f].specification != "") {
+
+									let specification = JSON.parse(resp[f].specification);
+
+									for (const i in specification) {
+
+										let property = Object.keys(specification[i]).toString();
+
+										details += `<div>${property}: ${specification[i][property][0]}</div>`
+
+									}
+
 								}
 
 							}
 
-						}else{
+							details += `</div>`;
 
-							/*=============================================
-							Mostrar los detalles por defecto del producto 
-							=============================================*/
+							this.shoppingCart.push({
 
-							if(resp[f].specification != ""){
+								url: resp[f].url,
+								name: resp[f].name,
+								category: resp[f].category,
+								image: resp[f].image,
+								delivery_time: resp[f].delivery_time,
+								quantity: list[i].unit,
+								price: DinamicPrice.fnc(resp[f])[0],
+								shipping: Number(resp[f].shipping) * Number(list[i].unit),
+								details: details,
+								listDetails: list[i].details,
+								store: resp[f].store
 
-								let specification = JSON.parse(resp[f].specification);
-
-								for(const i in specification){
-
-									let property = Object.keys(specification[i]).toString();
-
-									details += `<div>${property}: ${specification[i][property][0]}</div>`
-
-								}
-
-							}
+							})
 
 						}
 
-						details += `</div>`;
-
-						this.shoppingCart.push({
-
-							url:resp[f].url,
-							name:resp[f].name,
-							category:resp[f].category,
-							image:resp[f].image,
-							delivery_time:resp[f].delivery_time,
-							quantity:list[i].unit,
-							price: DinamicPrice.fnc(resp[f])[0],
-							shipping:Number(resp[f].shipping)*Number(list[i].unit),
-							details:details,
-							listDetails:list[i].details,
-							store:resp[f].store
-
-						})
-
-					}
-
-				})
+					})
 
 			}
 
 
-		}else{
+		} else {
 
 			this.router.navigateByUrl("/shopping-cart");
 
@@ -232,40 +232,40 @@ export class CheckoutComponent implements OnInit {
 	Guardar datos de envíos del usuario
 	=============================================*/
 
-	saveAddressFnc(inputCountry, inputCity, inputPhone, inputAddress, inputSaveAddress){	
+	saveAddressFnc(inputCountry, inputCity, inputPhone, inputAddress, inputSaveAddress) {
 
-		if(this.saveAddress){
+		if (this.saveAddress) {
 
-			if(inputCountry.value != "" &&
-			   inputCity.value != "" &&
-			   inputPhone.value != "" &&
-			   inputAddress.value != ""){
+			if (inputCountry.value != "" &&
+				inputCity.value != "" &&
+				inputPhone.value != "" &&
+				inputAddress.value != "") {
 
-			   	let body = {
+				let body = {
 
-			   		country: this.user.country,
-			   		country_code: this.user.country_code,
-			   		city: this.user.city,
-			   		phone: `${this.dialCode}-${this.user.phone}`,
-			   		address: this.user.address
+					country: this.user.country,
+					country_code: this.user.country_code,
+					city: this.user.city,
+					phone: `${this.dialCode}-${this.user.phone}`,
+					address: this.user.address
 
-			   	}
+				}
 
-			   	this.usersService.patchData(this.id, body)
-			   	.subscribe(resp=>{
+				this.usersService.patchData(this.id, body)
+					.subscribe(resp => {
 
-			   		Sweetalert.fnc("success", "Your data was updated", null)
+						Sweetalert.fnc("success", "Tus datos fueron actualizados", null)
 
-			   	})
+					})
 
-			}else{
+			} else {
 
 				inputSaveAddress.checked = false;
 
-				Sweetalert.fnc("error", "Please fill in the required fields", null)
+				Sweetalert.fnc("error", "Por favor llene los campos requeridos", null)
 
 			}
-			
+
 		}
 
 	}
@@ -274,11 +274,11 @@ export class CheckoutComponent implements OnInit {
 	Agregar código dial al input telefónico
 	=============================================*/
 
-	changeCountry(inputCountry){
+	changeCountry(inputCountry) {
 
-		this.countries.forEach(country=>{
+		this.countries.forEach(country => {
 
-			if(inputCountry.value == country.name){
+			if (inputCountry.value == country.name) {
 
 				this.dialCode = country.dial_code;
 				this.user.country_code = country.code;
@@ -293,9 +293,9 @@ export class CheckoutComponent implements OnInit {
 	Función Callback()
 	=============================================*/
 
-	callback(){
+	callback() {
 
-		if(this.render){
+		if (this.render) {
 
 			this.render = false;
 
@@ -310,7 +310,7 @@ export class CheckoutComponent implements OnInit {
 			let localAddInfo = this.addInfo;
 			let localOrdersService = this.ordersService;
 			let localValidateCoupon = this.validateCoupon;
-			let localPaymentMethod  =  this.paymentMethod;
+			let localPaymentMethod = this.paymentMethod;
 			let localSalesService = this.salesService;
 
 
@@ -318,33 +318,33 @@ export class CheckoutComponent implements OnInit {
 			Mostrar lista del carrito de compras con los precios definitivos
 			=============================================*/
 
-			setTimeout(function(){
+			setTimeout(function () {
 
-	    		let price = $(".pCheckout .end-price");
-	    		let quantity = $(".qCheckout");
-	    		let shipping = $(".sCheckout");
-	    		let subTotalPrice = $(".subTotalPriceCheckout");
+				let price = $(".pCheckout .end-price");
+				let quantity = $(".qCheckout");
+				let shipping = $(".sCheckout");
+				let subTotalPrice = $(".subTotalPriceCheckout");
 
-	    		let total = 0;
+				let total = 0;
 
-	    		for(let i = 0; i < price.length; i++){		
+				for (let i = 0; i < price.length; i++) {
 
-	    			/*=============================================
+					/*=============================================
 					Sumar precio con envío
 					=============================================*/
-					let shipping_price = Number($(price[i]).html()) + Number($(shipping[i]).html());			
-					
+					let shipping_price = Number($(price[i]).html()) + Number($(shipping[i]).html());
+
 					/*=============================================
 					Multiplicar cantidad por precio con envío
 					=============================================*/
 
-					let subTotal = Number($(quantity[i]).html())*shipping_price;					
+					let subTotal = Number($(quantity[i]).html()) * shipping_price;
 
 					/*=============================================
 					Mostramos subtotales de cada producto
 					=============================================*/
 
-					$(subTotalPrice[i]).html(`$${subTotal.toFixed(2)}`)
+					$(subTotalPrice[i]).html(`S/${subTotal.toFixed(2)}`)
 
 					localSubTotalPrice.push(subTotal.toFixed(2))
 
@@ -354,85 +354,85 @@ export class CheckoutComponent implements OnInit {
 
 					total += subTotal;
 
-	    		}
+				}
 
-	    		$(".totalCheckout").html(`$${total.toFixed(2)}`)
+				$(".totalCheckout").html(`S/${total.toFixed(2)}`)
 
-	    		localTotalPrice.push(total.toFixed(2));
+				localTotalPrice.push(total.toFixed(2));
 
-	    		/*=============================================
+				/*=============================================
 				Validar la compra de PAYU
-				=============================================*/	
+				=============================================*/
 
-				if(localActivatedRoute.snapshot.queryParams["transactionState"] == 4){
-					
+				if (localActivatedRoute.snapshot.queryParams["transactionState"] == 4) {
+
 					let totalRender = 0;
 
 					/*=============================================
 					Tomamos la información de la venta
 					=============================================*/
 
-					localShoppingCart.forEach((product, index)=>{
+					localShoppingCart.forEach((product, index) => {
 
-						totalRender ++
+						totalRender++
 
 						/*=============================================
 						Enviar actualización de cantidad de producto vendido a la base de datos
-						=============================================*/	
+						=============================================*/
 
 						localProductsService.getFilterData("url", product.url)
-						.subscribe(resp=>{
+							.subscribe(resp => {
 
-							for(const i in resp){
+								for (const i in resp) {
 
-								let id = Object.keys(resp).toString();
+									let id = Object.keys(resp).toString();
 
-								let value = {
+									let value = {
 
-									sales: Number(resp[i].sales)+Number(product.quantity),
-									stock: Number(resp[i].stock)-Number(product.quantity)
-								
+										sales: Number(resp[i].sales) + Number(product.quantity),
+										stock: Number(resp[i].stock) - Number(product.quantity)
+
+									}
+
+									localProductsService.patchDataAuth(id, value, localStorage.getItem("idToken"))
+										.subscribe(resp => { })
+
 								}
 
-								localProductsService.patchDataAuth(id, value, localStorage.getItem("idToken"))
-								.subscribe(resp=>{})
-
-							}
-
-						})
+							})
 
 						/*=============================================
 						Crear el proceso de entrega de la venta
 						=============================================*/
 
-						let moment = Math.floor(Number(product.delivery_time)/2);
+						let moment = Math.floor(Number(product.delivery_time) / 2);
 
 						let sentDate = new Date();
-						sentDate.setDate(sentDate.getDate()+moment);
+						sentDate.setDate(sentDate.getDate() + moment);
 
 						let deliveredDate = new Date();
-						deliveredDate.setDate(deliveredDate.getDate()+Number(product.delivery_time))
+						deliveredDate.setDate(deliveredDate.getDate() + Number(product.delivery_time))
 
 						let proccess = [
 
 							{
-								stage:"reviewed",
-								status:"ok",
-								comment:"We have received your order, we start delivery process",
-								date:new Date()
+								stage: "reviewed",
+								status: "ok",
+								comment: "Hemos recibido tu pedido, iniciamos proceso de entrega",
+								date: new Date()
 							},
 
 							{
-								stage:"sent",
-								status:"pending",
-								comment:"",
-								date:sentDate
+								stage: "sent",
+								status: "pending",
+								comment: "",
+								date: sentDate
 							},
 							{
-								stage:"delivered",
-								status:"pending",
-								comment:"",
-								date:deliveredDate
+								stage: "delivered",
+								status: "pending",
+								comment: "",
+								date: deliveredDate
 							}
 
 						]
@@ -443,114 +443,114 @@ export class CheckoutComponent implements OnInit {
 
 						let body = {
 
-							store:product.store,
+							store: product.store,
 							user: localUser.username,
 							product: product.name,
-							url:product.url,
-							image:product.image,
+							url: product.url,
+							image: product.image,
 							category: product.category,
-							details:product.details,
-							quantity:product.quantity,
+							details: product.details,
+							quantity: product.quantity,
 							price: localSubTotalPrice[index],
-							email:localUser.email,
-							country:localUser.country,
-							city:localUser.city,
-							phone:`${localDialCode}-${localUser.phone}`,
-							address:localUser.address,
-							info:localAddInfo,
-							process:JSON.stringify(proccess),
-							status:"pending"
+							email: localUser.email,
+							country: localUser.country,
+							city: localUser.city,
+							phone: `${localDialCode}-${localUser.phone}`,
+							address: localUser.address,
+							info: localAddInfo,
+							process: JSON.stringify(proccess),
+							status: "pending"
 
 						}
 
 						localOrdersService.registerDatabase(body, localStorage.getItem("idToken"))
-						.subscribe(resp=>{
-							
-							if(resp["name"] != ""){
+							.subscribe(resp => {
 
-								/*=============================================
-								Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
-								=============================================*/	
+								if (resp["name"] != "") {
 
-								let commission = 0;
-								let unitPrice = 0;
+									/*=============================================
+									Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
+									=============================================*/
 
-								if(localValidateCoupon){
+									let commission = 0;
+									let unitPrice = 0;
 
-									commission = Number(localSubTotalPrice[index])*0.05;
-									unitPrice = Number(localSubTotalPrice[index])*0.95;
+									if (localValidateCoupon) {
 
-								}else{
+										commission = Number(localSubTotalPrice[index]) * 0.05;
+										unitPrice = Number(localSubTotalPrice[index]) * 0.95;
 
-									commission = Number(localSubTotalPrice[index])*0.25;
-									unitPrice = Number(localSubTotalPrice[index])*0.75;
+									} else {
 
-								}				
+										commission = Number(localSubTotalPrice[index]) * 0.25;
+										unitPrice = Number(localSubTotalPrice[index]) * 0.75;
 
-								/*=============================================
-								Enviar información de la venta a la base de datos
-								=============================================*/	
+									}
 
-								let body = {
+									/*=============================================
+									Enviar información de la venta a la base de datos
+									=============================================*/
 
-									id_order: resp["name"],
-									client: localUser.username,
-									product: product.name,
-									url:product.url,									
-									quantity:product.quantity,
-									unit_price: unitPrice.toFixed(2),
-									commission: commission.toFixed(2), 
-									total: localSubTotalPrice[index],
-									payment_method: "Payu",
-									id_payment: localActivatedRoute.snapshot.queryParams["transactionId"],
-									date: new Date(),
-									status: "pending"
+									let body = {
+
+										id_order: resp["name"],
+										client: localUser.username,
+										product: product.name,
+										url: product.url,
+										quantity: product.quantity,
+										unit_price: unitPrice.toFixed(2),
+										commission: commission.toFixed(2),
+										total: localSubTotalPrice[index],
+										payment_method: "Payu",
+										id_payment: localActivatedRoute.snapshot.queryParams["transactionId"],
+										date: new Date(),
+										status: "pending"
+
+									}
+
+									localSalesService.registerDatabase(body, localStorage.getItem("idToken"))
+										.subscribe(resp => { })
 
 								}
 
-								localSalesService.registerDatabase(body, localStorage.getItem("idToken"))
-								.subscribe(resp=>{})
-							
-							}
-
-						})
+							})
 
 
 					})
 
 					/*=============================================
 					Preguntamos cuando haya finalizado el proceso de guardar todo en la base de datos
-					=============================================*/	
+					=============================================*/
 
-					if(totalRender == localShoppingCart.length){
+					if (totalRender == localShoppingCart.length) {
 
 						localStorage.removeItem("list");
 						Cookies.remove('coupon');
 
-						Sweetalert.fnc("success", "The purchase was successful", "account/my-shopping");
-					
-					}						
+						Sweetalert.fnc("success", "La compra fue exitosa", "account/my-shopping");
+
+					}
 
 
 				}
-				
-				
-	    	},totalShoppingCart*500)
+
+
+			}, totalShoppingCart * 500)
 		}
 
 	}
 
 	/*=============================================
-  	Envío del formulario checkout
-  	=============================================*/
+		Envío del formulario checkout
+		=============================================*/
 
-	onSubmit(f: NgForm){
+	onSubmit(f: NgForm) {
 
 		/*=============================================
-  		Validamos formulario para evitar campos vacíos
-  		=============================================*/
+			Validamos formulario para evitar campos vacíos
+			=============================================*/
 
-		if(f.invalid ){
+		if (f.invalid) {
 
 			Sweetalert.fnc("error", "Invalid Request", null);
 
@@ -559,30 +559,30 @@ export class CheckoutComponent implements OnInit {
 		}
 
 		/*=============================================
-  		Sweetalert para esperar el proceso de ejecución
-  		=============================================*/
-
-	    Sweetalert.fnc("loading", "Loading...", null)  
-   
-   		/*=============================================
-  		Pasarelas de pago
-  		=============================================*/
-
-		if(f.value.paymentMethod == "paypal"){
-
-		 	/*=============================================
-			Checkout con Paypal		
+			Sweetalert para esperar el proceso de ejecución
 			=============================================*/
-			
+
+		Sweetalert.fnc("loading", "Cargando...", null)
+
+		/*=============================================
+	Pasarelas de pago
+	=============================================*/
+
+		if (f.value.paymentMethod == "paypal") {
+
+			/*=============================================
+		  Checkout con Paypal		
+		  =============================================*/
+
 			Sweetalert.fnc("html", `<div id="paypal-button-container"></div>`, null);
 
 			/*=============================================
 			Ejecutamos función de Paypal pasando el precio total de la venta
-			=============================================*/	
+			=============================================*/
 
-			Paypal.fnc(this.totalPrice[0]).then(resp=>{
-				
-				if(resp){
+			Paypal.fnc(this.totalPrice[0]).then(resp => {
+
+				if (resp) {
 
 					let totalRender = 0;
 
@@ -590,67 +590,67 @@ export class CheckoutComponent implements OnInit {
 					Tomamos la información de la venta
 					=============================================*/
 
-					this.shoppingCart.forEach((product, index)=>{
+					this.shoppingCart.forEach((product, index) => {
 
-						totalRender ++
+						totalRender++
 
 						/*=============================================
 						Enviar actualización de cantidad de producto vendido a la base de datos
-						=============================================*/	
+						=============================================*/
 
 						this.productsService.getFilterData("url", product.url)
-						.subscribe(resp=>{
+							.subscribe(resp => {
 
-							for(const i in resp){
+								for (const i in resp) {
 
-								let id = Object.keys(resp).toString();
+									let id = Object.keys(resp).toString();
 
-								let value = {
+									let value = {
 
-									sales: Number(resp[i].sales)+Number(product.quantity),
-									stock: Number(resp[i].stock)-Number(product.quantity)
-								
+										sales: Number(resp[i].sales) + Number(product.quantity),
+										stock: Number(resp[i].stock) - Number(product.quantity)
+
+									}
+
+									this.productsService.patchDataAuth(id, value, localStorage.getItem("idToken"))
+										.subscribe(resp => { })
+
 								}
 
-								this.productsService.patchDataAuth(id, value, localStorage.getItem("idToken"))
-								.subscribe(resp=>{})
-
-							}
-
-						})
+							})
 
 						/*=============================================
 						Crear el proceso de entrega de la venta
 						=============================================*/
 
-						let moment = Math.floor(Number(product.delivery_time)/2);
+						let moment = Math.floor(Number(product.delivery_time) / 2);
 
 						let sentDate = new Date();
-						sentDate.setDate(sentDate.getDate()+moment);
+						sentDate.setDate(sentDate.getDate() + moment);
 
 						let deliveredDate = new Date();
-						deliveredDate.setDate(deliveredDate.getDate()+Number(product.delivery_time))
+						deliveredDate.setDate(deliveredDate.getDate() + Number(product.delivery_time))
 
 						let proccess = [
 
 							{
-								stage:"reviewed",
-								status:"ok",
-								comment:"We have received your order, we start delivery process",
-								date:new Date()
+								stage: "reviewed",
+								status: "ok",
+								comment: "Hemos recibido tu pedido, iniciamos proceso de entrega",
+								date: new Date()
 							},
 
 							{
-								stage:"sent",
-								status:"pending",
-								comment:"",
-								date:sentDate
+								stage: "sent",
+								status: "pending",
+								comment: "",
+								date: sentDate
 							},
 							{
-								stage:"delivered",
-								status:"pending",
-								comment:"",
-								date:deliveredDate
+								stage: "delivered",
+								status: "pending",
+								comment: "",
+								date: deliveredDate
 							}
 
 						]
@@ -661,98 +661,98 @@ export class CheckoutComponent implements OnInit {
 
 						let body = {
 
-							store:product.store,
+							store: product.store,
 							user: this.user.username,
 							product: product.name,
-							url:product.url,
-							image:product.image,
+							url: product.url,
+							image: product.image,
 							category: product.category,
-							details:product.details,
-							quantity:product.quantity,
+							details: product.details,
+							quantity: product.quantity,
 							price: this.subTotalPrice[index],
-							email:f.value.email,
-							country:f.value.country,
-							city:f.value.city,
-							phone:`${this.dialCode}-${f.value.phone}`,
-							address:f.value.address,
-							info:f.value.addInfo,
-							process:JSON.stringify(proccess),
-							status:"pending",
+							email: f.value.email,
+							country: f.value.country,
+							city: f.value.city,
+							phone: `${this.dialCode}-${f.value.phone}`,
+							address: f.value.address,
+							info: f.value.addInfo,
+							process: JSON.stringify(proccess),
+							status: "pending",
 							date: new Date()
 
 						}
 
 						this.ordersService.registerDatabase(body, localStorage.getItem("idToken"))
-						.subscribe(resp=>{
-							
-							if(resp["name"] != ""){
+							.subscribe(resp => {
 
-								/*=============================================
-								Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
-								=============================================*/	
+								if (resp["name"] != "") {
 
-								let commission = 0;
-								let unitPrice = 0;
+									/*=============================================
+									Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
+									=============================================*/
 
-								if(this.validateCoupon){
+									let commission = 0;
+									let unitPrice = 0;
 
-									commission = Number(this.subTotalPrice[index])*0.05;
-									unitPrice = Number(this.subTotalPrice[index])*0.95;
+									if (this.validateCoupon) {
 
-								}else{
+										commission = Number(this.subTotalPrice[index]) * 0.05;
+										unitPrice = Number(this.subTotalPrice[index]) * 0.95;
 
-									commission = Number(this.subTotalPrice[index])*0.25;
-									unitPrice = Number(this.subTotalPrice[index])*0.75;
+									} else {
 
-								}				
+										commission = Number(this.subTotalPrice[index]) * 0.25;
+										unitPrice = Number(this.subTotalPrice[index]) * 0.75;
 
-								/*=============================================
-								Enviar información de la venta a la base de datos
-								=============================================*/	
+									}
 
-								let id_payment = localStorage.getItem("id_payment");
+									/*=============================================
+									Enviar información de la venta a la base de datos
+									=============================================*/
 
-								let body = {
+									let id_payment = localStorage.getItem("id_payment");
 
-									id_order: resp["name"],
-									client: this.user.username,
-									product: product.name,
-									url:product.url,
-									quantity:product.quantity,
-									unit_price: unitPrice.toFixed(2),
-									commission: commission.toFixed(2), 
-									total: this.subTotalPrice[index],
-									payment_method: f.value.paymentMethod,
-									id_payment: id_payment,
-									date: new Date(),
-									status: "pending"
+									let body = {
+
+										id_order: resp["name"],
+										client: this.user.username,
+										product: product.name,
+										url: product.url,
+										quantity: product.quantity,
+										unit_price: unitPrice.toFixed(2),
+										commission: commission.toFixed(2),
+										total: this.subTotalPrice[index],
+										payment_method: f.value.paymentMethod,
+										id_payment: id_payment,
+										date: new Date(),
+										status: "pending"
+
+									}
+
+									this.salesService.registerDatabase(body, localStorage.getItem("idToken"))
+										.subscribe(resp => { })
 
 								}
 
-								this.salesService.registerDatabase(body, localStorage.getItem("idToken"))
-								.subscribe(resp=>{})
-							
-							}
-
-						})
+							})
 
 
 					})
 
 					/*=============================================
 					Preguntamos cuando haya finalizado el proceso de guardar todo en la base de datos
-					=============================================*/	
+					=============================================*/
 
-					if(totalRender == this.shoppingCart.length){
+					if (totalRender == this.shoppingCart.length) {
 
 						localStorage.removeItem("list");
 						Cookies.remove('coupon');
 
 						Sweetalert.fnc("success", "The purchase was successful", "account/my-shopping");
-					
-					}						
 
-				}else{
+					}
+
+				} else {
 
 
 					Sweetalert.fnc("error", "The purchase was not made, please try again", null);
@@ -761,11 +761,11 @@ export class CheckoutComponent implements OnInit {
 
 			})
 
-		}else if(f.value.paymentMethod == "payu"){
+		} else if (f.value.paymentMethod == "payu") {
 
-		 	/*=============================================
-			Checkout con Payu
-			=============================================*/
+			/*=============================================
+		  Checkout con Payu
+		  =============================================*/
 
 			let action = Payu.action;
 			let merchantId = Payu.merchantId;
@@ -781,7 +781,7 @@ export class CheckoutComponent implements OnInit {
 
 			let description = "";
 
-			this.shoppingCart.forEach(product=>{
+			this.shoppingCart.forEach(product => {
 
 				description += `${product.name} x${product.quantity}, `
 
@@ -793,7 +793,7 @@ export class CheckoutComponent implements OnInit {
 			Creamos el código de referencia
 			=============================================*/
 
-			let referenceCode = Math.ceil(Math.random()*1000000);
+			let referenceCode = Math.ceil(Math.random() * 1000000);
 
 			/*=============================================
 			Creamos la firma de Payu
@@ -801,76 +801,76 @@ export class CheckoutComponent implements OnInit {
 
 			let signature = Md5.init(`${apiKey}~${merchantId}~${referenceCode}~${this.totalPrice[0]}~USD`);
 
-			
+
 
 			/*=============================================
 			Subimos compra de Payu a Base de datos
-			=============================================*/	
+			=============================================*/
 
 			let totalRender = 0;
 
 			let idOrders = [];
 			let idSales = [];
 			let idProducts = [];
-		
+
 
 			/*=============================================
 			Tomamos la información de la venta
 			=============================================*/
 
-			this.shoppingCart.forEach((product, index)=>{
+			this.shoppingCart.forEach((product, index) => {
 
-				totalRender ++
+				totalRender++
 
 				/*=============================================
 				Enviar actualización de cantidad de producto vendido a la base de datos
-				=============================================*/	
+				=============================================*/
 
 				this.productsService.getFilterData("url", product.url)
-				.subscribe(resp=>{
+					.subscribe(resp => {
 
-					for(const i in resp){
+						for (const i in resp) {
 
-						let id = Object.keys(resp).toString();
+							let id = Object.keys(resp).toString();
 
-						idProducts.push(`${id},${product.quantity}`);
+							idProducts.push(`${id},${product.quantity}`);
 
-					}
+						}
 
-				})
+					})
 
 				/*=============================================
 				Crear el proceso de entrega de la venta
 				=============================================*/
 
-				let moment = Math.floor(Number(product.delivery_time)/2);
+				let moment = Math.floor(Number(product.delivery_time) / 2);
 
 				let sentDate = new Date();
-				sentDate.setDate(sentDate.getDate()+moment);
+				sentDate.setDate(sentDate.getDate() + moment);
 
 				let deliveredDate = new Date();
-				deliveredDate.setDate(deliveredDate.getDate()+Number(product.delivery_time))
+				deliveredDate.setDate(deliveredDate.getDate() + Number(product.delivery_time))
 
 				let proccess = [
 
 					{
-						stage:"reviewed",
-						status:"ok",
-						comment:"We have received your order, we start delivery process",
-						date:new Date()
+						stage: "reviewed",
+						status: "ok",
+						comment: "Hemos recibido tu pedido, iniciamos proceso de entrega",
+						date: new Date()
 					},
 
 					{
-						stage:"sent",
-						status:"pending",
-						comment:"",
-						date:sentDate
+						stage: "sent",
+						status: "pending",
+						comment: "",
+						date: sentDate
 					},
 					{
-						stage:"delivered",
-						status:"pending",
-						comment:"",
-						date:deliveredDate
+						stage: "delivered",
+						status: "pending",
+						comment: "",
+						date: deliveredDate
 					}
 
 				]
@@ -881,105 +881,105 @@ export class CheckoutComponent implements OnInit {
 
 				let body = {
 
-					store:product.store,
+					store: product.store,
 					user: this.user.username,
 					product: product.name,
-					url:product.url,
-					image:product.image,
+					url: product.url,
+					image: product.image,
 					category: product.category,
-					details:product.details,
-					quantity:product.quantity,
+					details: product.details,
+					quantity: product.quantity,
 					price: this.subTotalPrice[index],
-					email:f.value.email,
-					country:f.value.country,
-					city:f.value.city,
-					phone:`${this.dialCode}-${f.value.phone}`,
-					address:f.value.address,
-					info:f.value.addInfo,
-					process:JSON.stringify(proccess),
-					status:"test",
+					email: f.value.email,
+					country: f.value.country,
+					city: f.value.city,
+					phone: `${this.dialCode}-${f.value.phone}`,
+					address: f.value.address,
+					info: f.value.addInfo,
+					process: JSON.stringify(proccess),
+					status: "test",
 					date: new Date()
 
 				}
 
 				this.ordersService.registerDatabase(body, localStorage.getItem("idToken"))
-				.subscribe(resp=>{
-					
-					if(resp["name"] != ""){						
+					.subscribe(resp => {
 
-						idOrders.push(resp["name"]);
-					
-						/*=============================================
-						Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
-						=============================================*/	
+						if (resp["name"] != "") {
 
-						let commission = 0;
-						let unitPrice = 0;
+							idOrders.push(resp["name"]);
 
-						if(this.validateCoupon){
+							/*=============================================
+							Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
+							=============================================*/
 
-							commission = Number(this.subTotalPrice[index])*0.05;
-							unitPrice = Number(this.subTotalPrice[index])*0.95;
+							let commission = 0;
+							let unitPrice = 0;
 
-						}else{
+							if (this.validateCoupon) {
 
-							commission = Number(this.subTotalPrice[index])*0.25;
-							unitPrice = Number(this.subTotalPrice[index])*0.75;
+								commission = Number(this.subTotalPrice[index]) * 0.05;
+								unitPrice = Number(this.subTotalPrice[index]) * 0.95;
 
-						}				
+							} else {
 
-						/*=============================================
-						Enviar información de la venta a la base de datos
-						=============================================*/	
-
-						let id_payment = localStorage.getItem("id_payment");
-
-						let body = {
-
-							id_order: resp["name"],
-							client: this.user.username,
-							product: product.name,
-							url:product.url,
-							quantity:product.quantity,
-							unit_price: unitPrice.toFixed(2),
-							commission: commission.toFixed(2), 
-							total: this.subTotalPrice[index],
-							payment_method: f.value.paymentMethod,
-							id_payment: "",
-							date: new Date(),
-							status: "test"
-
-						}
-
-						this.salesService.registerDatabase(body, localStorage.getItem("idToken"))
-						.subscribe(resp=>{
-
-							if(resp["name"] != ""){		
-
-								idSales.push(resp["name"]);
+								commission = Number(this.subTotalPrice[index]) * 0.25;
+								unitPrice = Number(this.subTotalPrice[index]) * 0.75;
 
 							}
 
+							/*=============================================
+							Enviar información de la venta a la base de datos
+							=============================================*/
 
-						})
-					
-					}
+							let id_payment = localStorage.getItem("id_payment");
 
-				})
+							let body = {
+
+								id_order: resp["name"],
+								client: this.user.username,
+								product: product.name,
+								url: product.url,
+								quantity: product.quantity,
+								unit_price: unitPrice.toFixed(2),
+								commission: commission.toFixed(2),
+								total: this.subTotalPrice[index],
+								payment_method: f.value.paymentMethod,
+								id_payment: "",
+								date: new Date(),
+								status: "test"
+
+							}
+
+							this.salesService.registerDatabase(body, localStorage.getItem("idToken"))
+								.subscribe(resp => {
+
+									if (resp["name"] != "") {
+
+										idSales.push(resp["name"]);
+
+									}
+
+
+								})
+
+						}
+
+					})
 
 
 			})
 
 			/*=============================================
 			Preguntamos cuando haya finalizado el proceso de guardar todo en la base de datos
-			=============================================*/	
+			=============================================*/
 
-			if(totalRender == this.shoppingCart.length){			
+			if (totalRender == this.shoppingCart.length) {
 
 				let localTotalPrice = this.totalPrice[0];
 				let localEmail = this.user.email;
 
-				setTimeout(function(){
+				setTimeout(function () {
 
 					/*=============================================
 					Formulario web checkout de Payu
@@ -1011,35 +1011,35 @@ export class CheckoutComponent implements OnInit {
 
 					/*=============================================
 					Listado de tarjetas de crédito
-					=============================================*/	
+					=============================================*/
 
 					//https://www.mercadopago.com.co/developers/es/guides/payments/web-tokenize-checkout/testing/
 
 					/*=============================================
 					Sacar el botón de Payu en una alerta suave
-					=============================================*/	
+					=============================================*/
 
 					Sweetalert.fnc("html", formPayu, null);
 
 
-				},totalRender*1000)
-					
-			
-			}						
+				}, totalRender * 1000)
 
 
-		}else if(f.value.paymentMethod == "mercado-pago"){
+			}
+
+
+		} else if (f.value.paymentMethod == "mercado-pago") {
 
 			/*=============================================
 			Checkout con Mercado Pago
 			=============================================*/
-			
+
 			let formMP = `<img src="assets/img/payment-method/mp_logo.png" style="width:100px" />
 						  <div><a class="ps-btn p-0 px-5 popupMP">Next</a></div>`
 
 			/*=============================================
 			Sacar el botón de MercadoPago en una alerta suave
-			=============================================*/	
+			=============================================*/
 
 			Sweetalert.fnc("html", formMP, null);
 
@@ -1055,7 +1055,7 @@ export class CheckoutComponent implements OnInit {
 
 			let description = "";
 
-			this.shoppingCart.forEach(product=>{
+			this.shoppingCart.forEach(product => {
 
 				description += `${product.name} x${product.quantity}, `
 
@@ -1070,27 +1070,27 @@ export class CheckoutComponent implements OnInit {
 			let email = this.user.email;
 			let path = this.path;
 
-			$(document).on("click", ".popupMP", function(){
+			$(document).on("click", ".popupMP", function () {
 
-				Cookies.set("_x", window.btoa(localTotalPrice), {expires: 1});
-				Cookies.set("_p", description, {expires: 1});
-				Cookies.set("_e", email, {expires: 1});
+				Cookies.set("_x", window.btoa(localTotalPrice), { expires: 1 });
+				Cookies.set("_p", description, { expires: 1 });
+				Cookies.set("_e", email, { expires: 1 });
 
 				window.open(`http://proyectotesis.test/ClienteMultilens/src/assets/mercadopago/index.php?x=${Md5.init(localTotalPrice)}&cx=${window.btoa(localTotalPrice)}&cp=${description}&ce=${email}`,
-							"_blank",
-							"width=950,height=650,scrollbars=NO")
+					"_blank",
+					"width=950,height=650,scrollbars=NO")
 
 			})
 
 			/*=============================================
 			Validar la compra de Mercado Pago
-			=============================================*/	
-
+			=============================================*/
+			debugger
 			let count = 0;
 
 			/*=============================================
 			Convertir variables globales en locales
-			=============================================*/	
+			=============================================*/
 
 			let localSubTotalPrice = this.subTotalPrice;
 			let localShoppingCart = this.shoppingCart;
@@ -1100,22 +1100,31 @@ export class CheckoutComponent implements OnInit {
 			let localAddInfo = this.addInfo;
 			let localOrdersService = this.ordersService;
 			let localValidateCoupon = this.validateCoupon;
-			let localPaymentMethod  =  this.paymentMethod;
+			let localPaymentMethod = this.paymentMethod;
 			let localSalesService = this.salesService;
 
-			let interval = setInterval(function(){
+			let interval = setInterval(function () {
 
 				count++
 
 				/*=============================================
 				Validar la compra de Mercado Pago
-				=============================================*/	
+				=============================================*/
 
-				if( localStorage.getItem('_i') != undefined && 
-					localStorage.getItem('_k') != undefined  && 
-					localStorage.getItem('_a') != undefined && 
-					localStorage.getItem('_k') == MercadoPago.public_key && 
-					localStorage.getItem('_a') == MercadoPago.access_token){
+
+				console.log(" ***************************************");
+				console.log("                "+count);
+				console.log(" ***************************************");
+				console.log("_i ", localStorage.getItem('_i'));
+				console.log("_k ", localStorage.getItem('_k'));
+				console.log("_a ", localStorage.getItem('_a'));
+				console.log("_k ", localStorage.getItem('_k'));
+
+				// if (localStorage.getItem('_i') != undefined &&
+				// 	localStorage.getItem('_k') != undefined &&
+				// 	localStorage.getItem('_a') != undefined &&
+				// 	localStorage.getItem('_k') == MercadoPago.public_key &&
+				// 	localStorage.getItem('_a') == MercadoPago.access_token) {
 
 
 					let totalRender = 0;
@@ -1124,67 +1133,67 @@ export class CheckoutComponent implements OnInit {
 					Tomamos la información de la venta
 					=============================================*/
 
-					localShoppingCart.forEach((product, index)=>{
+					localShoppingCart.forEach((product, index) => {
 
-						totalRender ++
-
+						totalRender++
+						debugger
 						/*=============================================
 						Enviar actualización de cantidad de producto vendido a la base de datos
-						=============================================*/	
+						=============================================*/
 
 						localProductsService.getFilterData("url", product.url)
-						.subscribe(resp=>{
+							.subscribe(resp => {
+								debugger
+								for (const i in resp) {
 
-							for(const i in resp){
+									let id = Object.keys(resp).toString();
 
-								let id = Object.keys(resp).toString();
+									let value = {
 
-								let value = {
+										sales: Number(resp[i].sales) + Number(product.quantity),
+										stock: Number(resp[i].stock) - Number(product.quantity)
 
-									sales: Number(resp[i].sales)+Number(product.quantity),
-									stock: Number(resp[i].stock)-Number(product.quantity)
-								
+									}
+
+									localProductsService.patchDataAuth(id, value, localStorage.getItem("idToken"))
+										.subscribe(resp => { })
+
 								}
 
-								localProductsService.patchDataAuth(id, value, localStorage.getItem("idToken"))
-								.subscribe(resp=>{})
-
-							}
-
-						})
+							})
 
 						/*=============================================
 						Crear el proceso de entrega de la venta
 						=============================================*/
 
-						let moment = Math.floor(Number(product.delivery_time)/2);
+						let moment = Math.floor(Number(product.delivery_time) / 2);
 
 						let sentDate = new Date();
-						sentDate.setDate(sentDate.getDate()+moment);
+						sentDate.setDate(sentDate.getDate() + moment);
 
 						let deliveredDate = new Date();
-						deliveredDate.setDate(deliveredDate.getDate()+Number(product.delivery_time))
+						deliveredDate.setDate(deliveredDate.getDate() + Number(product.delivery_time))
 
 						let proccess = [
 
 							{
-								stage:"reviewed",
-								status:"ok",
-								comment:"We have received your order, we start delivery process",
-								date:new Date()
+								stage: "reviewed",
+								status: "ok",
+								comment: "Hemos recibido tu pedido, iniciamos proceso de entrega",
+								date: new Date()
 							},
 
 							{
-								stage:"sent",
-								status:"pending",
-								comment:"",
-								date:sentDate
+								stage: "sent",
+								status: "pending",
+								comment: "",
+								date: sentDate
 							},
 							{
-								stage:"delivered",
-								status:"pending",
-								comment:"",
-								date:deliveredDate
+								stage: "delivered",
+								status: "pending",
+								comment: "",
+								date: deliveredDate
 							}
 
 						]
@@ -1195,88 +1204,88 @@ export class CheckoutComponent implements OnInit {
 
 						let body = {
 
-							store:product.store,
+							store: product.store,
 							user: localUser.username,
 							product: product.name,
-							url:product.url,
-							image:product.image,
+							url: product.url,
+							image: product.image,
 							category: product.category,
-							details:product.details,
-							quantity:product.quantity,
+							details: product.details,
+							quantity: product.quantity,
 							price: localSubTotalPrice[index],
-							email:localUser.email,
-							country:localUser.country,
-							city:localUser.city,
-							phone:`${localDialCode}-${localUser.phone}`,
-							address:localUser.address,
-							info:localAddInfo,
-							process:JSON.stringify(proccess),
-							status:"pending",
+							email: localUser.email,
+							country: localUser.country,
+							city: localUser.city,
+							phone: `${localDialCode}-${localUser.phone}`,
+							address: localUser.address,
+							info: localAddInfo,
+							process: JSON.stringify(proccess),
+							status: "pending",
 							date: new Date()
 
 						}
 
 						localOrdersService.registerDatabase(body, localStorage.getItem("idToken"))
-						.subscribe(resp=>{
-							
-							if(resp["name"] != ""){
+							.subscribe(resp => {
+								debugger
+								if (resp["name"] != "") {
 
-								/*=============================================
-								Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
-								=============================================*/	
+									/*=============================================
+									Separamos la comisión del Marketplace y el pago a la tienda del precio total de cada producto
+									=============================================*/
 
-								let commission = 0;
-								let unitPrice = 0;
+									let commission = 0;
+									let unitPrice = 0;
 
-								if(localValidateCoupon){
+									if (localValidateCoupon) {
 
-									commission = Number(localSubTotalPrice[index])*0.05;
-									unitPrice = Number(localSubTotalPrice[index])*0.95;
+										commission = Number(localSubTotalPrice[index]) * 0.05;
+										unitPrice = Number(localSubTotalPrice[index]) * 0.95;
 
-								}else{
+									} else {
 
-									commission = Number(localSubTotalPrice[index])*0.25;
-									unitPrice = Number(localSubTotalPrice[index])*0.75;
+										commission = Number(localSubTotalPrice[index]) * 0.25;
+										unitPrice = Number(localSubTotalPrice[index]) * 0.75;
 
-								}				
+									}
 
-								/*=============================================
-								Enviar información de la venta a la base de datos
-								=============================================*/
+									/*=============================================
+									Enviar información de la venta a la base de datos
+									=============================================*/
 
-								let body = {
+									let body = {
 
-									id_order: resp["name"],
-									client: localUser.username,
-									product: product.name,
-									url:product.url,
-									quantity:product.quantity,
-									unit_price: unitPrice.toFixed(2),
-									commission: commission.toFixed(2), 
-									total: localSubTotalPrice[index],
-									payment_method: "Mercado Pago",
-									id_payment: localStorage.getItem('_i'),
-									date: new Date(),
-									status: "pending"
+										id_order: resp["name"],
+										client: localUser.username,
+										product: product.name,
+										url: product.url,
+										quantity: product.quantity,
+										unit_price: unitPrice.toFixed(2),
+										commission: commission.toFixed(2),
+										total: localSubTotalPrice[index],
+										payment_method: "Mercado Pago",
+										id_payment: localStorage.getItem('_i'),
+										date: new Date(),
+										status: "pending"
+
+									}
+
+									localSalesService.registerDatabase(body, localStorage.getItem("idToken"))
+										.subscribe(resp => { })
 
 								}
 
-								localSalesService.registerDatabase(body, localStorage.getItem("idToken"))
-								.subscribe(resp=>{})
-							
-							}
-
-						})
+							})
 
 
 					})
 
 					/*=============================================
 					Preguntamos cuando haya finalizado el proceso de guardar todo en la base de datos
-					=============================================*/	
+					=============================================*/
 
-					if(totalRender == localShoppingCart.length){
-
+					if (totalRender == localShoppingCart.length) {
+						debugger
 						clearInterval(interval);
 
 						localStorage.removeItem("list");
@@ -1284,30 +1293,30 @@ export class CheckoutComponent implements OnInit {
 						localStorage.removeItem("_k");
 						Cookies.remove('coupon');
 
-						Sweetalert.fnc("success", "The purchase was successful", "account/my-shopping");
-					
-					}			
+						Sweetalert.fnc("success", "La compra fue exitosa", "account/my-shopping");
 
-				}
+					}
+
+				// }
 
 
 				/*=============================================
 				Detenemos el intervalo
-				=============================================*/			
+				=============================================*/
 
-				if(count > 300){
+				if (count > 300) {
 
 					clearInterval(interval);
 					window.open("account", "_parent");
 				}
 
-			},1000)
-		
-		}else{
+			}, 1000)
+
+		} else {
 
 			Sweetalert.fnc("error", "Invalid request", null)
 
-	      	return;
+			return;
 
 		}
 

@@ -207,20 +207,20 @@ export class HomeShowcaseComponent implements OnInit {
 
 									disccount = `<div class="ps-product__badge">-${value}%</div>`;
 
-									price = `<p class="ps-product__price sale">$${offer} <del>$${arrayProducts[i].price} </del></p>`
+									price = `<p class="ps-product__price sale">S/${offer} <del>$${arrayProducts[i].price} </del></p>`
 
 								}else{
 
 									
 
-									price = `<p class="ps-product__price">$${arrayProducts[i].price} </p>`
+									price = `<p class="ps-product__price">S/${arrayProducts[i].price} </p>`
 								}
 							
 							}else{
 
 								
 
-								price = `<p class="ps-product__price">$${arrayProducts[i].price} </p>`
+								price = `<p class="ps-product__price">S/${arrayProducts[i].price} </p>`
 							}
 
 							/*=============================================

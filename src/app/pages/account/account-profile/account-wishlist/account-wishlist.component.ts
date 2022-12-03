@@ -36,7 +36,7 @@ export class AccountWishlistComponent implements OnInit, OnDestroy {
 	dtOptions: DataTables.Settings = {};
 	dtTrigger: Subject<any> = new Subject();
 
-  popoverMessage:string = 'Are you sure to remove it?';
+  popoverMessage:string = '¿Estás segura de eliminarlo?';
 
 	constructor(private usersService: UsersService,
 		          private productsService: ProductsService,
@@ -184,7 +184,7 @@ export class AccountWishlistComponent implements OnInit, OnDestroy {
 
         if(resp["wishlist"] != ""){
 
-          Sweetalert.fnc("success", "Product removed", "account")
+          Sweetalert.fnc("success", "Producto eliminado", "account")
 
         }
 
@@ -213,7 +213,7 @@ export class AccountWishlistComponent implements OnInit, OnDestroy {
 
           notie.confirm({
 
-            text: "Are you sure to remove it?",
+            text: "¿Estás seguro de eliminarlo?",
             cancelCallback: function(){
               return;
             },
@@ -248,7 +248,7 @@ export class AccountWishlistComponent implements OnInit, OnDestroy {
 
                   if(resp["wishlist"] != ""){
 
-                    Sweetalert.fnc("success", "Product removed", "account")
+                    Sweetalert.fnc("success", "Producto eliminado", "account")
 
                   }
 

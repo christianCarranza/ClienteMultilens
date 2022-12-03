@@ -56,9 +56,9 @@ export class CallToActionComponent implements OnInit {
 
 			            this.price.push(`<span class="ps-product__price">
 
-					                        <span>$${offer}</span>
+					                        <span>S/${offer}</span>
 
-					                        <del>$${response.price}</del>
+					                        <del>S/${response.price}</del>
 
 					                    </span>`);
 
@@ -66,7 +66,7 @@ export class CallToActionComponent implements OnInit {
 
 			            this.price.push(`<span class="ps-product__price">
 
-					                        <span>$${response.price}</span>
+					                        <span>S/${response.price}</span>
 
 					                    </span>`);
 			        }

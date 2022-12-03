@@ -377,7 +377,7 @@ export class AccountMyShoppingComponent implements OnInit, OnDestroy {
 
 				if(resp["reviews"] != ""){
 
-				 	Sweetalert.fnc("success", "The review was created successfully", "account/my-shopping");  
+				 	Sweetalert.fnc("success", "Su valoracion se envio correctamente", "account/my-shopping");  
 				}
 
 			}, err =>{

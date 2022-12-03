@@ -130,7 +130,7 @@ export class BoughtTogetherComponent implements OnInit {
   				
   			}
 
-  			$(".ps-block__total strong").html(`$${total.toFixed(2)}`)
+  			$(".ps-block__total strong").html(`S/${total.toFixed(2)}`)
   		}
   	}
 

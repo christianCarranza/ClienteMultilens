@@ -429,7 +429,7 @@ export class AccountProfileComponent implements OnInit {
 
     				if(resp["picture"] != ""){
 
-    					Sweetalert.fnc("success", "¡Your photo has been updated!", "account")
+    					Sweetalert.fnc("success", "¡Tu foto ha sido actualizada!", "account")
     				}
 
     			})

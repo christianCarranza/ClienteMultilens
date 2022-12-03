@@ -345,7 +345,7 @@ export class HeaderMobileComponent implements OnInit {
 		
 				}
 
-				$(".subTotalHeader").html(`$${totalPrice.toFixed(2)}`)
+				$(".subTotalHeader").html(`S/${totalPrice.toFixed(2)}`)
 
 			},totalProduct.length * 500)
 

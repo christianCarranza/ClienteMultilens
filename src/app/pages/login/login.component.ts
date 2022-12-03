@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
 
 											if (resp["needConfirm"]) {
 
-												Sweetalert.fnc("success", "¡Email confirm, login now!", "login")
+												Sweetalert.fnc("success", "¡Se confirmo su correo, inicia sesión ahora!", "login")
 											}
 
 										})
@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit {
 
 					if (err.error.error.message == "INVALID_OOB_CODE") {
 
-						Sweetalert.fnc("error", "The email has already been confirmed", "login")
+						Sweetalert.fnc("error", "El correo ya ha sido confirmado.", "login")
 
 					}
 
@@ -406,7 +406,8 @@ export class LoginComponent implements OnInit {
 			projectId: "multi-lens",
 			storageBucket: "multi-lens.appspot.com",
 			messagingSenderId: "1073333159100",
-			appId: "1:1073333159100:web:7aedad4b110da722dd3cb9"
+			appId: "1:1073333159100:web:7aedad4b110da722dd3cb9",
+			measurementId: "G-8K3BJ1NPM6"
 		};
 
 		// Initialize Firebase
@@ -434,7 +435,7 @@ export class LoginComponent implements OnInit {
 
 			var errorMessage = error.message;
 
-			Sweetalert.fnc("error", errorMessage, "login");
+			Sweetalert.fnc("error", "Error al iniciar sesion", "login");
 
 		});
 
@@ -507,7 +508,7 @@ export class LoginComponent implements OnInit {
 
 						} else {
 
-							Sweetalert.fnc("error", "This account is not registered", "register")
+							Sweetalert.fnc("error", "Esta cuenta no está registrada", "register")
 
 						}
 
@@ -547,7 +548,8 @@ export class LoginComponent implements OnInit {
 			projectId: "multi-lens",
 			storageBucket: "multi-lens.appspot.com",
 			messagingSenderId: "1073333159100",
-			appId: "1:1073333159100:web:7aedad4b110da722dd3cb9"
+			appId: "1:1073333159100:web:7aedad4b110da722dd3cb9",
+			measurementId: "G-8K3BJ1NPM6"
 		};
 
 		// Initialize Firebase
@@ -646,7 +648,7 @@ export class LoginComponent implements OnInit {
 
 						} else {
 
-							Sweetalert.fnc("error", "This account is not registered", "register")
+							Sweetalert.fnc("error", "Esta cuenta no está registrada", "register")
 
 						}
 
