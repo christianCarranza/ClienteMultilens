@@ -404,7 +404,7 @@ export class HeaderComponent implements OnInit {
 
     		localStorage.setItem("list", JSON.stringify(shoppingCart));
 
-    		Sweetalert.fnc("success", "product removed", this.router.url)
+    		Sweetalert.fnc("success", "producto eliminado", this.router.url)
 
 		}
 

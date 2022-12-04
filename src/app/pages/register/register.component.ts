@@ -128,7 +128,7 @@ export class RegisterComponent implements OnInit {
     Alerta suave mientras se registra el usuario
     =============================================*/
 
-    Sweetalert.fnc("loading", "Loading...", null)
+    Sweetalert.fnc("loading", "Cargando...", null)
 
     /*=============================================
     Registro en Firebase Authentication
@@ -169,7 +169,7 @@ export class RegisterComponent implements OnInit {
                 this.usersService.registerDatabase(this.user)
                   .subscribe(resp => {
 
-                    Sweetalert.fnc("success", "Confirm your account in your email (check spam)", "login")
+                    Sweetalert.fnc("success", "Confirma tu cuenta en tu correo electrónico (revisar spam)", "login")
 
                   })
 

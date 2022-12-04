@@ -296,7 +296,7 @@ export class AccountProfileComponent implements OnInit {
 
     	if(value != ""){
 
-	    	Sweetalert.fnc("loading", "Loading...", null)
+	    	Sweetalert.fnc("loading", "Cargando...", null)
 
 	    	let body = {
 

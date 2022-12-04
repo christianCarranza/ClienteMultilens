@@ -314,11 +314,11 @@ export class HomeHotTodayComponent implements OnInit {
 
 					$(offer_1[i]).html(
 
-						`<span>Save <br> $${(price * offer[1]/100).toFixed(2) }</span>`
+						`<span>Ahorrar <br> S/${(price * offer[1]/100).toFixed(2) }</span>`
 
 					)
 
-					$(offer_2[i]).html(`$${(price-(price * offer[1]/100)).toFixed(2)}`)	
+					$(offer_2[i]).html(`S/${(price-(price * offer[1]/100)).toFixed(2)}`)	
 
 				}
 
@@ -330,11 +330,11 @@ export class HomeHotTodayComponent implements OnInit {
 
 					$(offer_1[i]).html(
 
-						`<span>Save <br> $${(price-offer[1]).toFixed(2) }</span>`
+						`<span>Ahorrar <br> S/${(price-offer[1]).toFixed(2) }</span>`
 
 					)
 
-					$(offer_2[i]).html(`$${offer[1]}`)	
+					$(offer_2[i]).html(`S/${offer[1]}`)	
 
 				}
 

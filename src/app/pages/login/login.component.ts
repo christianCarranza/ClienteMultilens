@@ -202,7 +202,7 @@ export class LoginComponent implements OnInit {
 		  Alerta suave mientras se registra el usuario
 		  =============================================*/
 
-		Sweetalert.fnc("loading", "Loading...", null)
+		Sweetalert.fnc("loading", "Cargando...", null)
 
 		/*=============================================
 		  Validar que el correo esté verificado
@@ -312,7 +312,7 @@ export class LoginComponent implements OnInit {
 
 	resetPassword(value) {
 
-		Sweetalert.fnc("loading", "Loading...", null);
+		Sweetalert.fnc("loading", "Cargando...", null);
 
 		this.usersService.getFilterData("email", value)
 			.subscribe(resp => {
@@ -355,7 +355,7 @@ export class LoginComponent implements OnInit {
 
 		if (value != "") {
 
-			Sweetalert.fnc("loading", "Loading...", null)
+			Sweetalert.fnc("loading", "Cargando...", null)
 
 			let body = {
 

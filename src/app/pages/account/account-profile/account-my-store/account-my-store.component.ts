@@ -1086,7 +1086,7 @@ export class AccountMyStoreComponent implements OnInit, OnDestroy {
         Alerta suave mientras se edita la tienda
         =============================================*/
 
-        Sweetalert.fnc("loading", "Loading...", null);
+        Sweetalert.fnc("loading", "Cargando...", null);
 
         /*=============================================
         Subir imagenes al servidor
@@ -1360,7 +1360,7 @@ export class AccountMyStoreComponent implements OnInit, OnDestroy {
         Alerta suave mientras se carga el formulario de edición
         =============================================*/
 
-        Sweetalert.fnc("loading", "Loading...", null);
+        Sweetalert.fnc("loading", "Cargando...", null);
 
         /*=============================================
         Traemos la data del producto
@@ -1619,7 +1619,7 @@ export class AccountMyStoreComponent implements OnInit, OnDestroy {
         Alerta suave mientras se registra la tienda y el producto
         =============================================*/
 
-        Sweetalert.fnc("loading", "Loading...", null);
+        Sweetalert.fnc("loading", "Cargando...", null);
 
         /*=============================================
         Subir imagenes al servidor

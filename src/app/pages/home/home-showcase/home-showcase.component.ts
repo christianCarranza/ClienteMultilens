@@ -207,7 +207,7 @@ export class HomeShowcaseComponent implements OnInit {
 
 									disccount = `<div class="ps-product__badge">-${value}%</div>`;
 
-									price = `<p class="ps-product__price sale">S/${offer} <del>$${arrayProducts[i].price} </del></p>`
+									price = `<p class="ps-product__price sale">S/${offer} <del>S/${arrayProducts[i].price} </del></p>`
 
 								}else{
 
@@ -248,7 +248,7 @@ export class HomeShowcaseComponent implements OnInit {
 
 							if(arrayProducts[i].stock == 0){
 
-								disccount = `<div class="ps-product__badge out-stock">Out Of Stock</div>`;
+								disccount = `<div class="ps-product__badge out-stock">Sin stock</div>`;
 
 							}
 
@@ -342,7 +342,7 @@ export class HomeShowcaseComponent implements OnInit {
 			                	</a>
 
 							`)
-
+debugger
 							/*=============================================
 							Ejecutar funciones globales con respecto al carrusel
 							=============================================*/	

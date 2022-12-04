@@ -1051,7 +1051,7 @@ export class AccountNewStoreComponent implements OnInit {
             Alerta suave mientras se registra la tienda y el producto
             =============================================*/
 
-            Sweetalert.fnc("loading", "Loading...", null);
+            Sweetalert.fnc("loading", "Cargando...", null);
 
             /*=============================================
             Subir imagenes al servidor

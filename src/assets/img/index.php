@@ -29,16 +29,16 @@ if(isset($_GET["key"]) && $_GET["key"] == "AIzaSyDCbhaDnOD2_zb5TXc2Eqwbc8AYBnjFZ
 		Eliminar todos los archivos que existan en ese directorio
 		=============================================*/
 
-		// if($_POST["path"] != "products" && $_POST["path"] != "stores"){
+		if($_POST["path"] != "products" && $_POST["path"] != "stores"){
 
-		// 	$files = glob($directory."/*");
+			$files = glob($directory."/*");
 
-		// 	foreach ($files as $file) {
+			foreach ($files as $file) {
 				
-		// 		unlink($file);
-		// 	}
+				unlink($file);
+			}
 
-		// }
+		}
 
 		/*=============================================
 		Capturar ancho y alto original de la imagen

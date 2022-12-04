@@ -84,16 +84,16 @@ class="ps-product--detail ps-product--fullwidth">
 
                 <p> 
 
-                	Sold By:<a class="mr-20" href="shop-default.html"><strong>{{p.store}}</strong></a> 
+                	Tienda:<a class="mr-20" href="shop-default.html"><strong>{{p.store}}</strong></a> 
 
                 	Status:
                     <strong 
                     *ngIf="p.stock > 0"
-                    class="ps-tag--in-stock"> In stock</strong>
+                    class="ps-tag--in-stock"> En stock</strong>
 
                     <strong 
                     *ngIf="p.stock == 0"
-                    class="ps-tag--out-stock"> Out stock</strong>
+                    class="ps-tag--out-stock"> Sin stock</strong>
 
                 </p>
 
