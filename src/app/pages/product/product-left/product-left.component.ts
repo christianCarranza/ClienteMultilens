@@ -301,7 +301,7 @@ export class ProductLeftComponent implements OnInit {
          
               let figure = `<figure class="details${index}">
               
-                              <figcaption>${property}: <strong>Choose an option</strong></figcaption>
+                              <figcaption>${property}: <strong>Escoge una opción</strong></figcaption>
 
                               <div class="d-flex">
                               
