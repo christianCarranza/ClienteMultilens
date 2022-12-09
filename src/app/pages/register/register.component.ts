@@ -362,7 +362,7 @@ export class RegisterComponent implements OnInit {
     const auth = getAuth();
     signInWithPopup(auth, provider)
       .then((result) => {
-        debugger
+        
         registerFirebaseDatabase(result, localUser, localUsersService)
 
       }).catch((error) => {

@@ -1085,7 +1085,7 @@ export class CheckoutComponent implements OnInit {
 			/*=============================================
 			Validar la compra de Mercado Pago
 			=============================================*/
-			debugger
+			
 			let count = 0;
 
 			/*=============================================
@@ -1136,14 +1136,14 @@ export class CheckoutComponent implements OnInit {
 					localShoppingCart.forEach((product, index) => {
 
 						totalRender++
-						debugger
+						
 						/*=============================================
 						Enviar actualización de cantidad de producto vendido a la base de datos
 						=============================================*/
 
 						localProductsService.getFilterData("url", product.url)
 							.subscribe(resp => {
-								debugger
+								
 								for (const i in resp) {
 
 									let id = Object.keys(resp).toString();
@@ -1227,7 +1227,7 @@ export class CheckoutComponent implements OnInit {
 
 						localOrdersService.registerDatabase(body, localStorage.getItem("idToken"))
 							.subscribe(resp => {
-								debugger
+								
 								if (resp["name"] != "") {
 
 									/*=============================================
@@ -1285,7 +1285,7 @@ export class CheckoutComponent implements OnInit {
 					=============================================*/
 
 					if (totalRender == localShoppingCart.length) {
-						debugger
+						
 						clearInterval(interval);
 
 						localStorage.removeItem("list");

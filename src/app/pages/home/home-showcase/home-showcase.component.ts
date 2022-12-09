@@ -342,7 +342,7 @@ export class HomeShowcaseComponent implements OnInit {
 			                	</a>
 
 							`)
-debugger
+
 							/*=============================================
 							Ejecutar funciones globales con respecto al carrusel
 							=============================================*/	

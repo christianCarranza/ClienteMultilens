@@ -284,7 +284,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy  {
 
 	    			let start = value.price.substr(54);
 	    			let end = start.slice(1,-11);
-	    			debugger
+	    			
 	    			total += (Number(end) + Number(value.shipping)) * Number(value.quantity);
 
 	    		})
