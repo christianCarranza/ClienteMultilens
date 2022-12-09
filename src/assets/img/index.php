@@ -1,14 +1,16 @@
 <?php 
+echo "<script>console.log('si entroooo 1');</script>";
+
 
 if(isset($_GET["key"]) && $_GET["key"] == "AIzaSyDCbhaDnOD2_zb5TXc2Eqwbc8AYBnjFZyI"){
-
+	echo "<script>console.log('si entroooo 2');</script>";
 	header('Access-Control-Allow-Origin: *');
 	header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 	header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
 	header('content-type: application/json; charset=utf-8');
 
 	if(isset($_FILES['file']["tmp_name"]) && !empty($_FILES['file']["tmp_name"])){ 
-
+		echo "<script>console.log('si entroooo 3');</script>";
 		/*=============================================
 		Configuramos la ruta del directorio donde se guardará la imagen
 		=============================================*/
@@ -54,6 +56,7 @@ if(isset($_GET["key"]) && $_GET["key"] == "AIzaSyDCbhaDnOD2_zb5TXc2Eqwbc8AYBnjFZ
 		=============================================*/
 
 		if($_FILES["file"]["type"] == "image/jpeg"){
+			echo "<script>console.log('si entroooo 4');</script>";
 
 			//definimos nombre del archivo
 			if(!isset($_POST["name"])){
@@ -76,10 +79,10 @@ if(isset($_GET["key"]) && $_GET["key"] == "AIzaSyDCbhaDnOD2_zb5TXc2Eqwbc8AYBnjFZ
 			imagejpeg($end, $folderPath);
 
 		}
-
+		echo "<script>console.log('si entroooo 5');</script>";
 
 		if($_FILES["file"]["type"] == "image/png"){
-
+			echo "<script>console.log('si entroooo 6');</script>";
 			//definimos nombre del archivo
 			if(!isset($_POST["name"])){
 				$name = mt_rand(100, 9999).'.png';
@@ -125,11 +128,11 @@ if(isset($_GET["key"]) && $_GET["key"] == "AIzaSyDCbhaDnOD2_zb5TXc2Eqwbc8AYBnjFZ
 		 	'status' => null
 		
 		);
-
+		echo "<script>console.log('si entroooo final');</script>";
 		echo json_encode($json, true);
 
 		return;
 
 	}
-
+	echo "<script>console.log('si entroooo finlizo');</script>";
 }
