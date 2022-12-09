@@ -38,7 +38,7 @@ if(isset($_GET["key"]) && $_GET["key"] == "AIzaSyDCbhaDnOD2_zb5TXc2Eqwbc8AYBnjFZ
 
 				Hi, '.$_POST["name"].':
 
-				<a href="http://localhost:4200/'.$_POST["url"].'">Click this link for more information</a>
+				<a href="http://164.90.152.139:4200/'.$_POST["url"].'">Click this link for more information</a>
 
 				If you didn’t ask to verify this address, you can ignore this email.
 
